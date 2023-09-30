@@ -1,0 +1,4155 @@
+<!doctype html>
+<html>
+  <head>
+    <title>ViSOL</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>ViSOL</h1>
+    <div class="app-desc">Visual Interactive Optimization Tool.</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/api/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li></li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Berths">Berths</a></h4>
+  <ul>
+  <li><a href="#createBerth"><code><span class="http-method">post</span> /berths</code></a></li>
+  <li><a href="#deleteBerth"><code><span class="http-method">delete</span> /berths/{berth_id}</code></a></li>
+  <li><a href="#replaceBerth"><code><span class="http-method">put</span> /berths/{berth_id}</code></a></li>
+  <li><a href="#retrieveBerth"><code><span class="http-method">get</span> /berths/{berth_id}</code></a></li>
+  <li><a href="#retrieveBerthSchedules"><code><span class="http-method">get</span> /berths/{berth_id}/schedules</code></a></li>
+  </ul>
+  <h4><a href="#Changes">Changes</a></h4>
+  <ul>
+  <li><a href="#deleteScheduleChange"><code><span class="http-method">delete</span> /changes/schedules/{vessel_id}/{date}</code></a></li>
+  <li><a href="#deleteScheduleChanges"><code><span class="http-method">delete</span> /changes/schedules/{vessel_id}</code></a></li>
+  <li><a href="#deleteVesselChange"><code><span class="http-method">delete</span> /changes/vessels/{vessel_id}/{date}</code></a></li>
+  <li><a href="#deleteVesselChanges"><code><span class="http-method">delete</span> /changes/vessels/{vessel_id}</code></a></li>
+  <li><a href="#redoLastChange"><code><span class="http-method">post</span> /changes/redo</code></a></li>
+  <li><a href="#retrieveAllScheduleChanges"><code><span class="http-method">get</span> /changes/schedules/{vessel_id}</code></a></li>
+  <li><a href="#retrieveAllSchedulesChanges"><code><span class="http-method">get</span> /changes/schedules</code></a></li>
+  <li><a href="#retrieveAllVesselChanges"><code><span class="http-method">get</span> /changes/vessels</code></a></li>
+  <li><a href="#retrieveScheduleChange"><code><span class="http-method">get</span> /changes/schedules/{vessel_id}/{date}</code></a></li>
+  <li><a href="#retrieveVesselChange"><code><span class="http-method">get</span> /changes/vessels/{vessel_id}/{date}</code></a></li>
+  <li><a href="#retrieveVesselChanges"><code><span class="http-method">get</span> /changes/vessels/{vessel_id}</code></a></li>
+  <li><a href="#undoLastChange"><code><span class="http-method">post</span> /changes/undo</code></a></li>
+  </ul>
+  <h4><a href="#Employees">Employees</a></h4>
+  <ul>
+  <li><a href="#createEmployee"><code><span class="http-method">post</span> /employees</code></a></li>
+  <li><a href="#deleteEmployee"><code><span class="http-method">delete</span> /employees/{employee_email}</code></a></li>
+  <li><a href="#replaceEmployee"><code><span class="http-method">put</span> /employees/{employee_email}</code></a></li>
+  <li><a href="#retrieveAllEmployees"><code><span class="http-method">get</span> /employees</code></a></li>
+  <li><a href="#retrieveEmployee"><code><span class="http-method">get</span> /employees/{employee_email}</code></a></li>
+  </ul>
+  <h4><a href="#Ports">Ports</a></h4>
+  <ul>
+  <li><a href="#calculatePortPerformance"><code><span class="http-method">get</span> /ports/{port_id}/performance</code></a></li>
+  <li><a href="#createPort"><code><span class="http-method">post</span> /ports</code></a></li>
+  <li><a href="#deletePort"><code><span class="http-method">delete</span> /ports/{port_id}</code></a></li>
+  <li><a href="#exportPort"><code><span class="http-method">get</span> /ports/{port_id}/export</code></a></li>
+  <li><a href="#importPort"><code><span class="http-method">post</span> /ports/import</code></a></li>
+  <li><a href="#replacePort"><code><span class="http-method">put</span> /ports/{port_id}</code></a></li>
+  <li><a href="#retrieveAllPorts"><code><span class="http-method">get</span> /ports</code></a></li>
+  <li><a href="#retrievePort"><code><span class="http-method">get</span> /ports/{port_id}</code></a></li>
+  <li><a href="#retrievePortSchedules"><code><span class="http-method">get</span> /ports/{port_id}/schedules</code></a></li>
+  <li><a href="#retrievePortTerminals"><code><span class="http-method">get</span> /ports/{port_id}/terminals</code></a></li>
+  </ul>
+  <h4><a href="#Terminals">Terminals</a></h4>
+  <ul>
+  <li><a href="#calculateTerminalPerformance"><code><span class="http-method">get</span> /terminals/{terminal_id}/performance</code></a></li>
+  <li><a href="#createTerminal"><code><span class="http-method">post</span> /terminals</code></a></li>
+  <li><a href="#deleteTerminal"><code><span class="http-method">delete</span> /terminals/{terminal_id}</code></a></li>
+  <li><a href="#optimiseTerminalSchedules"><code><span class="http-method">post</span> /terminals/{terminal_id}/schedules/optimise</code></a></li>
+  <li><a href="#replaceTerminal"><code><span class="http-method">put</span> /terminals/{terminal_id}</code></a></li>
+  <li><a href="#retrieveTerminal"><code><span class="http-method">get</span> /terminals/{terminal_id}</code></a></li>
+  <li><a href="#retrieveTerminalBerths"><code><span class="http-method">get</span> /terminals/{terminal_id}/berths</code></a></li>
+  <li><a href="#retrieveTerminalChanges"><code><span class="http-method">post</span> /terminals/{terminal_id}/changes</code></a></li>
+  <li><a href="#retrieveTerminalSchedules"><code><span class="http-method">get</span> /terminals/{terminal_id}/schedules</code></a></li>
+  <li><a href="#retrieveTerminalVessels"><code><span class="http-method">get</span> /terminals/{terminal_id}/vessels</code></a></li>
+  </ul>
+  <h4><a href="#Token">Token</a></h4>
+  <ul>
+  <li><a href="#obtainToken"><code><span class="http-method">post</span> /token/obtain</code></a></li>
+  <li><a href="#verifyToken"><code><span class="http-method">get</span> /token/verify</code></a></li>
+  </ul>
+  <h4><a href="#Vessels">Vessels</a></h4>
+  <ul>
+  <li><a href="#checkVesselScheduleValid"><code><span class="http-method">get</span> /vessels/{vessel_id}/schedule/valid</code></a></li>
+  <li><a href="#createVessel"><code><span class="http-method">post</span> /vessels</code></a></li>
+  <li><a href="#deleteVessel"><code><span class="http-method">delete</span> /vessels/{vessel_id}</code></a></li>
+  <li><a href="#deleteVesselSchedule"><code><span class="http-method">delete</span> /vessels/{vessel_id}/schedule</code></a></li>
+  <li><a href="#replaceOrCreateVesselSchedule"><code><span class="http-method">put</span> /vessels/{vessel_id}/schedule</code></a></li>
+  <li><a href="#replaceVessel"><code><span class="http-method">put</span> /vessels/{vessel_id}</code></a></li>
+  <li><a href="#retrieveVessel"><code><span class="http-method">get</span> /vessels/{vessel_id}</code></a></li>
+  <li><a href="#retrieveVesselSchedule"><code><span class="http-method">get</span> /vessels/{vessel_id}/schedule</code></a></li>
+  </ul>
+
+  <h1><a name="Berths">Berths</a></h1>
+  <div class="method"><a name="createBerth"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /berths</code></pre></div>
+    <div class="method-summary">Create a Berth (<span class="nickname">createBerth</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Berth">Berth</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Berth">Berth</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "terminal" : 3,
+  "open_time" : "06:45",
+  "close_time" : 1290,
+  "unload_speed" : 6.3,
+  "length" : 150,
+  "width" : 30,
+  "depth" : 50
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Berth">Berth</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteBerth"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /berths/{berth_id}</code></pre></div>
+    <div class="method-summary">Delete a Berth (<span class="nickname">deleteBerth</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">berth_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Berth. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="replaceBerth"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /berths/{berth_id}</code></pre></div>
+    <div class="method-summary">Replace a Berth (<span class="nickname">replaceBerth</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">berth_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Berth. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Berth">Berth</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Berth">Berth</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "terminal" : 3,
+  "open_time" : "06:45",
+  "close_time" : 1290,
+  "unload_speed" : 6.3,
+  "length" : 150,
+  "width" : 30,
+  "depth" : 50
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Berth">Berth</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveBerth"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /berths/{berth_id}</code></pre></div>
+    <div class="method-summary">Retrieve a Berth (<span class="nickname">retrieveBerth</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">berth_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Berth. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Berth">Berth</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "terminal" : 3,
+  "open_time" : "06:45",
+  "close_time" : 1290,
+  "unload_speed" : 6.3,
+  "length" : 150,
+  "width" : 30,
+  "depth" : 50
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Berth">Berth</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveBerthSchedules"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /berths/{berth_id}/schedules</code></pre></div>
+    <div class="method-summary">Retrieve a Berth's Schedules (<span class="nickname">retrieveBerthSchedules</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">berth_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Berth. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BerthSchedules">BerthSchedules</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "vessel" : 1,
+  "manual" : true,
+  "berth" : 30,
+  "start" : "2022-05-11T16:32:00Z",
+  "end" : "2022-05-11T21:26:00Z"
+}, {
+  "vessel" : 2,
+  "manual" : false,
+  "berth" : 30,
+  "start" : "2022-05-14T09:21:00Z",
+  "end" : "2022-05-15T13:53:00Z"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BerthSchedules">BerthSchedules</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Changes">Changes</a></h1>
+  <div class="method"><a name="deleteScheduleChange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /changes/schedules/{vessel_id}/{date}</code></pre></div>
+    <div class="method-summary">Delete a Schedule's Change (<span class="nickname">deleteScheduleChange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel which Schedule should be changed. </div>      <div class="param">date (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Time at which the change was made. Can be formatted without colons and dashes. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteScheduleChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /changes/schedules/{vessel_id}</code></pre></div>
+    <div class="method-summary">Delete a Schedule's Changes (<span class="nickname">deleteScheduleChanges</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel whose Schedule should be/was changed. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start deleting from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end deleting at </div>    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteVesselChange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /changes/vessels/{vessel_id}/{date}</code></pre></div>
+    <div class="method-summary">Delete a Vessel's Change (<span class="nickname">deleteVesselChange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>      <div class="param">date (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Time at which the change was made. Can be formatted without colons and dashes. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteVesselChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /changes/vessels/{vessel_id}</code></pre></div>
+    <div class="method-summary">Delete a Vessel's Changes (<span class="nickname">deleteVesselChanges</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start deleting from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end deleting at </div>    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="redoLastChange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /changes/redo</code></pre></div>
+    <div class="method-summary">Redo the last change (<span class="nickname">redoLastChange</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveAllScheduleChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /changes/schedules/{vessel_id}</code></pre></div>
+    <div class="method-summary">Retrieve all Schedule's Changes (<span class="nickname">retrieveAllScheduleChanges</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel whose Schedule should be/was changed. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ScheduleChanges">ScheduleChanges</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "vessel" : 30,
+  "date" : "2022-05-11T16:32:35Z",
+  "old" : {
+    "vessel" : 30,
+    "manual" : true,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "new" : {
+    "vessel" : 30,
+    "manual" : false,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "reason" : "Turn on automatic scheduling"
+}, {
+  "vessel" : 30,
+  "date" : "2022-05-11T21:26:24Z",
+  "old" : {
+    "vessel" : 30,
+    "manual" : false,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "new" : {
+    "vessel" : 30,
+    "manual" : false,
+    "berth" : 18,
+    "start" : "2022-05-09T10:24:00Z",
+    "end" : "2022-05-10T16:17:00Z"
+  },
+  "reason" : "Automatic scheduling job"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#ScheduleChanges">ScheduleChanges</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveAllSchedulesChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /changes/schedules</code></pre></div>
+    <div class="method-summary">Retrieve all Schedules' Changes (<span class="nickname">retrieveAllSchedulesChanges</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ScheduleChangesMap">ScheduleChangesMap</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "30" : [ {
+    "vessel" : 30,
+    "date" : "2022-05-11T16:32:35Z",
+    "old" : {
+      "vessel" : 30,
+      "manual" : true,
+      "berth" : 20,
+      "start" : "2022-05-15T16:32:00Z",
+      "end" : "2022-05-15T21:26:00Z"
+    },
+    "new" : {
+      "vessel" : 30,
+      "manual" : false,
+      "berth" : 20,
+      "start" : "2022-05-15T16:32:00Z",
+      "end" : "2022-05-15T21:26:00Z"
+    },
+    "reason" : "Turn on automatic scheduling"
+  }, {
+    "vessel" : 30,
+    "date" : "2022-05-11T21:26:24Z",
+    "old" : {
+      "vessel" : 30,
+      "manual" : false,
+      "berth" : 20,
+      "start" : "2022-05-15T16:32:00Z",
+      "end" : "2022-05-15T21:26:00Z"
+    },
+    "new" : {
+      "vessel" : 30,
+      "manual" : false,
+      "berth" : 18,
+      "start" : "2022-05-09T10:24:00Z",
+      "end" : "2022-05-10T16:17:00Z"
+    },
+    "reason" : "Automatic scheduling job"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#ScheduleChangesMap">ScheduleChangesMap</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveAllVesselChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /changes/vessels</code></pre></div>
+    <div class="method-summary">Retrieve all Vessels' Changes (<span class="nickname">retrieveAllVesselChanges</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VesselChangesMap">VesselChangesMap</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "30" : [ {
+    "vessel" : 30,
+    "date" : "2022-05-11T16:32:35Z",
+    "old" : {
+      "name" : "Vessel 1",
+      "arrival" : "2022-05-11T13:56:00Z",
+      "deadline" : "2022-05-12T18:13:00Z",
+      "containers" : 30,
+      "cost_per_hour" : 2.6,
+      "destination" : 4,
+      "length" : 30,
+      "width" : 10,
+      "depth" : 30
+    },
+    "new" : {
+      "name" : "New Vessel 1",
+      "arrival" : "2022-05-11T13:56:00Z",
+      "deadline" : "2022-05-12T18:13:00Z",
+      "containers" : 40,
+      "cost_per_hour" : 2.6,
+      "destination" : 4,
+      "length" : 30,
+      "width" : 10,
+      "depth" : 30
+    },
+    "reason" : "Additional cargo (#2524)"
+  }, {
+    "vessel" : 30,
+    "date" : "2022-05-11T21:26:24Z",
+    "old" : {
+      "name" : "New Vessel 1",
+      "arrival" : "2022-05-11T13:56:00Z",
+      "deadline" : "2022-05-12T18:13:00Z",
+      "containers" : 40,
+      "cost_per_hour" : 2.6,
+      "destination" : 4,
+      "length" : 30,
+      "width" : 10,
+      "depth" : 30
+    },
+    "new" : {
+      "name" : "New Vessel 1",
+      "arrival" : "2022-05-18T13:56:00Z",
+      "deadline" : "2022-05-19T18:13:00Z",
+      "containers" : 40,
+      "cost_per_hour" : 2.6,
+      "destination" : 4,
+      "length" : 30,
+      "width" : 10,
+      "depth" : 30
+    },
+    "reason" : "Ship delayed (#3517)"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VesselChangesMap">VesselChangesMap</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveScheduleChange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /changes/schedules/{vessel_id}/{date}</code></pre></div>
+    <div class="method-summary">Retrieve a Schedule's Change (<span class="nickname">retrieveScheduleChange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel which Schedule should be changed. </div>      <div class="param">date (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Time at which the change was made. Can be formatted without colons and dashes. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ScheduleChange">ScheduleChange</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "vessel" : 30,
+  "date" : "2022-05-11T16:32:35Z",
+  "old" : {
+    "vessel" : 30,
+    "manual" : true,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "new" : {
+    "vessel" : 30,
+    "manual" : false,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "reason" : "Turn on automatic scheduling"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#ScheduleChange">ScheduleChange</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveVesselChange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /changes/vessels/{vessel_id}/{date}</code></pre></div>
+    <div class="method-summary">Retrieve a Vessel's Change (<span class="nickname">retrieveVesselChange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>      <div class="param">date (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Time at which the change was made. Can be formatted without colons and dashes. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VesselChange">VesselChange</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "vessel" : 30,
+  "date" : "2022-05-11T16:32:35Z",
+  "old" : {
+    "name" : "Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 30,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "new" : {
+    "name" : "New Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 40,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "reason" : "Additional cargo (#2524)"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VesselChange">VesselChange</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveVesselChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /changes/vessels/{vessel_id}</code></pre></div>
+    <div class="method-summary">Retrieve a Vessel's Changes (<span class="nickname">retrieveVesselChanges</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VesselChanges">VesselChanges</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "vessel" : 30,
+  "date" : "2022-05-11T16:32:35Z",
+  "old" : {
+    "name" : "Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 30,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "new" : {
+    "name" : "New Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 40,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "reason" : "Additional cargo (#2524)"
+}, {
+  "vessel" : 30,
+  "date" : "2022-05-11T21:26:24Z",
+  "old" : {
+    "name" : "New Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 40,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "new" : {
+    "name" : "New Vessel 1",
+    "arrival" : "2022-05-18T13:56:00Z",
+    "deadline" : "2022-05-19T18:13:00Z",
+    "containers" : 40,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "reason" : "Ship delayed (#3517)"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VesselChanges">VesselChanges</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="undoLastChange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /changes/undo</code></pre></div>
+    <div class="method-summary">Undo the last change (<span class="nickname">undoLastChange</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Employees">Employees</a></h1>
+  <div class="method"><a name="createEmployee"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /employees</code></pre></div>
+    <div class="method-summary">Create an Employee (<span class="nickname">createEmployee</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#EmployeeInput">EmployeeInput</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Employee">Employee</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "email" : "jdoe@tormails.com",
+  "key" : {
+    "hash" : "U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==",
+    "salt" : "9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk="
+  },
+  "role" : "vessel planner",
+  "terminal" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Employee">Employee</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteEmployee"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /employees/{employee_email}</code></pre></div>
+    <div class="method-summary">Delete an Employee (<span class="nickname">deleteEmployee</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">employee_email (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The email address of the employee. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="replaceEmployee"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /employees/{employee_email}</code></pre></div>
+    <div class="method-summary">Replace an Employee (<span class="nickname">replaceEmployee</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">employee_email (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The email address of the employee. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#EmployeeInput">EmployeeInput</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Employee">Employee</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "email" : "jdoe@tormails.com",
+  "key" : {
+    "hash" : "U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==",
+    "salt" : "9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk="
+  },
+  "role" : "vessel planner",
+  "terminal" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Employee">Employee</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveAllEmployees"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /employees</code></pre></div>
+    <div class="method-summary">Retrieve all Employees (<span class="nickname">retrieveAllEmployees</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#EmployeeList">EmployeeList</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "email" : "jdoe@tormails.com",
+  "key" : {
+    "hash" : "U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==",
+    "salt" : "9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk="
+  },
+  "role" : "vessel planner",
+  "terminal" : 1
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#EmployeeList">EmployeeList</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveEmployee"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /employees/{employee_email}</code></pre></div>
+    <div class="method-summary">Retrieve an Employee (<span class="nickname">retrieveEmployee</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">employee_email (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The email address of the employee. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Employee">Employee</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "email" : "jdoe@tormails.com",
+  "key" : {
+    "hash" : "U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==",
+    "salt" : "9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk="
+  },
+  "role" : "vessel planner",
+  "terminal" : 1
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Employee">Employee</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Ports">Ports</a></h1>
+  <div class="method"><a name="calculatePortPerformance"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ports/{port_id}/performance</code></pre></div>
+    <div class="method-summary">Calculate a Port's Performance (<span class="nickname">calculatePortPerformance</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start calculating from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end calculating at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Performance">Performance</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "cost" : 5152.25,
+  "scheduled_vessels" : 27,
+  "unscheduled_vessels" : 14
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Performance">Performance</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="createPort"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /ports</code></pre></div>
+    <div class="method-summary">Create a Port (<span class="nickname">createPort</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Port">Port</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Port">Port</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Han Shipping"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Port">Port</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deletePort"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /ports/{port_id}</code></pre></div>
+    <div class="method-summary">Delete a Port (<span class="nickname">deletePort</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="exportPort"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ports/{port_id}/export</code></pre></div>
+    <div class="method-summary">Export a Port (<span class="nickname">exportPort</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start exporting from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end exporting at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#PortDump">PortDump</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "version" : 1,
+  "name" : "New York Imported",
+  "terminals" : {
+    "terminal7" : {
+      "name" : "North",
+      "port" : "port5"
+    },
+    "terminal8" : {
+      "name" : "South",
+      "port" : "port5"
+    }
+  },
+  "berths" : {
+    "berth13" : {
+      "open" : "06:15:00",
+      "close" : "19:50:00",
+      "depth" : 4,
+      "width" : 5,
+      "length" : 18,
+      "terminal" : "terminal7",
+      "unload_speed" : 16
+    },
+    "berth14" : {
+      "open" : "09:50:00",
+      "close" : "21:45:00",
+      "depth" : 5,
+      "width" : 5,
+      "length" : 14,
+      "terminal" : "terminal7",
+      "unload_speed" : 14
+    },
+    "berth15" : {
+      "open" : "10:15:00",
+      "close" : "22:15:00",
+      "depth" : 7,
+      "width" : 5,
+      "length" : 15,
+      "terminal" : "terminal8",
+      "unload_speed" : 12
+    },
+    "berth16" : {
+      "open" : "07:45:00",
+      "close" : "23:00:00",
+      "depth" : 4,
+      "width" : 4,
+      "length" : 8,
+      "terminal" : "terminal8",
+      "unload_speed" : 18
+    }
+  },
+  "vessels" : {
+    "vessel42" : {
+      "name" : "Llandaff",
+      "depth" : 3,
+      "width" : 5,
+      "length" : 2,
+      "arrival" : "2022-06-23T12:30:00Z",
+      "deadline" : "2022-06-25T23:00:00Z",
+      "containers" : 12,
+      "destination" : "terminal7",
+      "cost_per_hour" : 14
+    },
+    "vessel43" : {
+      "name" : "Tang",
+      "depth" : 2,
+      "width" : 2,
+      "length" : 1,
+      "arrival" : "2022-06-23T17:05:06Z",
+      "deadline" : "2022-06-24T23:15:00Z",
+      "containers" : 12,
+      "destination" : "terminal7",
+      "cost_per_hour" : 412
+    },
+    "vessel44" : {
+      "name" : "Jahde",
+      "depth" : 25,
+      "width" : 25,
+      "length" : 25,
+      "arrival" : "2022-06-23T12:05:06Z",
+      "deadline" : "2022-06-23T23:05:06Z",
+      "containers" : 24,
+      "destination" : "terminal7",
+      "cost_per_hour" : 12
+    },
+    "vessel45" : {
+      "name" : "Landudno",
+      "depth" : 26,
+      "width" : 25,
+      "length" : 36,
+      "arrival" : "2022-06-23T13:05:06Z",
+      "deadline" : "2022-06-23T23:05:06Z",
+      "containers" : 13,
+      "destination" : "terminal7",
+      "cost_per_hour" : 12
+    },
+    "vessel46" : {
+      "name" : "Picton",
+      "depth" : 26,
+      "width" : 25,
+      "length" : 38,
+      "arrival" : "2022-06-24T12:05:06Z",
+      "deadline" : "2022-06-24T23:05:06Z",
+      "containers" : 13,
+      "destination" : "terminal8",
+      "cost_per_hour" : 3.2
+    },
+    "vessel47" : {
+      "name" : "Etna",
+      "depth" : 36,
+      "width" : 24,
+      "length" : 24,
+      "arrival" : "2022-06-24T13:05:06Z",
+      "deadline" : "2022-06-24T23:05:06Z",
+      "containers" : 45,
+      "destination" : "terminal8",
+      "cost_per_hour" : 0.5
+    },
+    "vessel48" : {
+      "name" : "Wem",
+      "depth" : 64,
+      "width" : 24,
+      "length" : 14,
+      "arrival" : "2022-06-23T14:05:06Z",
+      "deadline" : "2022-06-23T23:05:06Z",
+      "containers" : 234,
+      "destination" : "terminal8",
+      "cost_per_hour" : 0.01
+    },
+    "vessel49" : {
+      "name" : "The Cyane",
+      "depth" : 53,
+      "width" : 12,
+      "length" : 17,
+      "arrival" : "2022-06-23T16:05:06Z",
+      "deadline" : "2022-06-23T23:05:06Z",
+      "containers" : 5,
+      "destination" : "terminal8",
+      "cost_per_hour" : 1.2
+    }
+  },
+  "schedules" : [ {
+    "berth" : "berth13",
+    "start" : "2022-06-23T13:30:00Z",
+    "manual" : true,
+    "vessel" : "vessel43",
+    "expected_end" : "2022-06-23T14:15:00Z"
+  }, {
+    "berth" : "berth13",
+    "start" : "2022-06-23T14:00:00Z",
+    "manual" : true,
+    "vessel" : "vessel42",
+    "expected_end" : "2022-06-23T14:45:00Z"
+  }, {
+    "berth" : "berth14",
+    "start" : "2000-01-08T13:05:06Z",
+    "manual" : true,
+    "vessel" : "vessel45",
+    "expected_end" : "2000-01-08T14:00:48Z"
+  }, {
+    "berth" : "berth14",
+    "start" : "2022-06-23T13:00:00Z",
+    "manual" : false,
+    "vessel" : "vessel44",
+    "expected_end" : "2022-06-23T14:42:51Z"
+  }, {
+    "berth" : "berth15",
+    "start" : "2000-01-08T13:05:06Z",
+    "manual" : true,
+    "vessel" : "vessel47",
+    "expected_end" : "2000-01-08T16:50:06Z"
+  }, {
+    "berth" : "berth15",
+    "start" : "2000-01-09T13:05:06Z",
+    "manual" : false,
+    "vessel" : "vessel46",
+    "expected_end" : "2000-01-09T14:10:06Z"
+  }, {
+    "berth" : "berth16",
+    "start" : "2000-01-08T13:05:06Z",
+    "manual" : false,
+    "vessel" : "vessel49",
+    "expected_end" : "2000-01-08T13:21:46Z"
+  }, {
+    "berth" : "berth16",
+    "start" : "2000-01-11T13:05:06Z",
+    "manual" : false,
+    "vessel" : "vessel48",
+    "expected_end" : "2000-01-12T02:05:06Z"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#PortDump">PortDump</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="importPort"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /ports/import</code></pre></div>
+    <div class="method-summary">Import a Port (<span class="nickname">importPort</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#PortDump">PortDump</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Port">Port</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Han Shipping"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Port">Port</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="replacePort"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /ports/{port_id}</code></pre></div>
+    <div class="method-summary">Replace a Port (<span class="nickname">replacePort</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Port">Port</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Port">Port</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Han Shipping"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Port">Port</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveAllPorts"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ports</code></pre></div>
+    <div class="method-summary">Retrieve all Ports (<span class="nickname">retrieveAllPorts</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#PortMap">PortMap</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "1" : {
+    "name" : "Han Shipping"
+  },
+  "2" : {
+    "name" : "Thai Transport"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#PortMap">PortMap</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrievePort"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ports/{port_id}</code></pre></div>
+    <div class="method-summary">Retrieve a Port (<span class="nickname">retrievePort</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Port">Port</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Han Shipping"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Port">Port</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrievePortSchedules"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ports/{port_id}/schedules</code></pre></div>
+    <div class="method-summary">Retrieve a Port's Schedules (<span class="nickname">retrievePortSchedules</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#PortSchedules">PortSchedules</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "1" : {
+    "30" : [ {
+      "vessel" : 1,
+      "manual" : true,
+      "berth" : 30,
+      "start" : "2022-05-11T16:32:00Z",
+      "end" : "2022-05-11T21:26:00Z"
+    }, {
+      "vessel" : 2,
+      "manual" : false,
+      "berth" : 30,
+      "start" : "2022-05-14T09:21:00Z",
+      "end" : "2022-05-15T13:53:00Z"
+    } ]
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#PortSchedules">PortSchedules</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrievePortTerminals"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ports/{port_id}/terminals</code></pre></div>
+    <div class="method-summary">Retrieve a Port's Terminals (<span class="nickname">retrievePortTerminals</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">port_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Port. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TerminalMap">TerminalMap</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "1" : {
+    "port" : 2,
+    "name" : "Han & Co. Ltd."
+  },
+  "2" : {
+    "port" : 2,
+    "name" : "Bui Buoys"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#TerminalMap">TerminalMap</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Terminals">Terminals</a></h1>
+  <div class="method"><a name="calculateTerminalPerformance"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /terminals/{terminal_id}/performance</code></pre></div>
+    <div class="method-summary">Calculate a Terminal's Performance (<span class="nickname">calculateTerminalPerformance</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start calculating from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end calculating at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Performance">Performance</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "cost" : 5152.25,
+  "scheduled_vessels" : 27,
+  "unscheduled_vessels" : 14
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Performance">Performance</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="createTerminal"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /terminals</code></pre></div>
+    <div class="method-summary">Create a Terminal (<span class="nickname">createTerminal</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Terminal">Terminal</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Terminal">Terminal</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "port" : 2,
+  "name" : "Han & Co. Ltd."
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Terminal">Terminal</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteTerminal"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /terminals/{terminal_id}</code></pre></div>
+    <div class="method-summary">Delete a Terminal (<span class="nickname">deleteTerminal</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="optimiseTerminalSchedules"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /terminals/{terminal_id}/schedules/optimise</code></pre></div>
+    <div class="method-summary">Optimise a Terminal's Schedules (<span class="nickname">optimiseTerminalSchedules</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start calculating from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end calculating at </div>      <div class="param">unscheduled (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Whether to include unscheduled Vessels in the optimisation default: false </div>      <div class="param">manual (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Whether to include manual Vessels in the optimisation default: false </div>    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="replaceTerminal"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /terminals/{terminal_id}</code></pre></div>
+    <div class="method-summary">Replace a Terminal (<span class="nickname">replaceTerminal</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Terminal">Terminal</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Terminal">Terminal</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "port" : 2,
+  "name" : "Han & Co. Ltd."
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Terminal">Terminal</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveTerminal"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /terminals/{terminal_id}</code></pre></div>
+    <div class="method-summary">Retrieve a Terminal (<span class="nickname">retrieveTerminal</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Terminal">Terminal</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "port" : 2,
+  "name" : "Han & Co. Ltd."
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Terminal">Terminal</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveTerminalBerths"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /terminals/{terminal_id}/berths</code></pre></div>
+    <div class="method-summary">Retrieve a Terminal's Berths (<span class="nickname">retrieveTerminalBerths</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BerthMap">BerthMap</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "1" : {
+    "terminal" : 3,
+    "open_time" : "06:45",
+    "close_time" : 1290,
+    "unload_speed" : 6.3,
+    "length" : 150,
+    "width" : 30,
+    "depth" : 50
+  },
+  "2" : {
+    "terminal" : 3,
+    "open_time" : "08:30",
+    "close_time" : 1155,
+    "unload_speed" : 2.7,
+    "length" : 60,
+    "width" : 20,
+    "depth" : 30
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BerthMap">BerthMap</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveTerminalChanges"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /terminals/{terminal_id}/changes</code></pre></div>
+    <div class="method-summary">Retrieve all changes of which the vessel's destination is the Terminal (<span class="nickname">retrieveTerminalChanges</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Changes">Changes</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "vessel" : 30,
+  "date" : "2022-05-11T16:32:35Z",
+  "type" : "vessel",
+  "old" : {
+    "name" : "Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 30,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "new" : {
+    "name" : "New Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 40,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "reason" : "Additional cargo (#2524)"
+}, {
+  "vessel" : 30,
+  "date" : "2022-05-11T16:32:35Z",
+  "type" : "schedule",
+  "old" : {
+    "vessel" : 30,
+    "manual" : true,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "new" : {
+    "vessel" : 30,
+    "manual" : false,
+    "berth" : 20,
+    "start" : "2022-05-15T16:32:00Z",
+    "end" : "2022-05-15T21:26:00Z"
+  },
+  "reason" : "Turn on automatic scheduling"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Changes">Changes</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveTerminalSchedules"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /terminals/{terminal_id}/schedules</code></pre></div>
+    <div class="method-summary">Retrieve a Terminal's Schedules (<span class="nickname">retrieveTerminalSchedules</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">from (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to start looking from </div>      <div class="param">to (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Time to end looking at </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TerminalSchedules">TerminalSchedules</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "30" : [ {
+    "vessel" : 1,
+    "manual" : true,
+    "berth" : 30,
+    "start" : "2022-05-11T16:32:00Z",
+    "end" : "2022-05-11T21:26:00Z"
+  }, {
+    "vessel" : 2,
+    "manual" : false,
+    "berth" : 30,
+    "start" : "2022-05-14T09:21:00Z",
+    "end" : "2022-05-15T13:53:00Z"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#TerminalSchedules">TerminalSchedules</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveTerminalVessels"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /terminals/{terminal_id}/vessels</code></pre></div>
+    <div class="method-summary">Retrieve all Vessels whose destination is the Terminal (<span class="nickname">retrieveTerminalVessels</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">terminal_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Terminal. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">deadline_after (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Only get Vessels who have a deadline after this time </div>      <div class="param">arrival_before (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Only get Vessels who have an arrival time before this time </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VesselMap">VesselMap</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "1" : {
+    "name" : "Vessel 1",
+    "arrival" : "2022-05-11T13:56:00Z",
+    "deadline" : "2022-05-12T18:13:00Z",
+    "containers" : 30,
+    "cost_per_hour" : 2.6,
+    "destination" : 4,
+    "length" : 30,
+    "width" : 10,
+    "depth" : 30
+  },
+  "2" : {
+    "name" : "The other vessel",
+    "arrival" : "2022-05-24T16:37:00Z",
+    "deadline" : "2022-05-25T23:28:00Z",
+    "containers" : 40,
+    "cost_per_hour" : 5.2,
+    "destination" : 3,
+    "length" : 45,
+    "width" : 15,
+    "depth" : 20
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VesselMap">VesselMap</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Token">Token</a></h1>
+  <div class="method"><a name="obtainToken"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /token/obtain</code></pre></div>
+    <div class="method-summary">Obtain a token (<span class="nickname">obtainToken</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#token_obtain_body">token_obtain_body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200">inline_response_200</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "token" : "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTY0NjAzMTEsImV4cCI6MTY1NjQ2MDM0MSwibmJmIjoxNjU2NDYwMTMxLCJ1c2VyIjoiamFuZXQ2OEB0b3JtYWlscy5jb20ifQ.Ap9vlr4sJ45Edd90vNc6K0RCYAJs1fPfIcnJWo098I1TMgARBM7yP4paf6nK1zZs4w7VXhxKY_kx9WAAu_8oIA"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#inline_response_200">inline_response_200</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="verifyToken"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /token/verify</code></pre></div>
+    <div class="method-summary">Verify a token (<span class="nickname">verifyToken</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    200 OK
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Vessels">Vessels</a></h1>
+  <div class="method"><a name="checkVesselScheduleValid"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vessels/{vessel_id}/schedule/valid</code></pre></div>
+    <div class="method-summary">Check if there is an infeasibility in the Vessel's Schedule (<span class="nickname">checkVesselScheduleValid</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Infeasibility">Infeasibility</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "valid" : false,
+  "reason" : "Overlapping with vessels: 1, 2"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Infeasibility">Infeasibility</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="createVessel"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /vessels</code></pre></div>
+    <div class="method-summary">Create a Vessel (<span class="nickname">createVessel</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Vessel">Vessel</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Vessel">Vessel</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Vessel 1",
+  "arrival" : "2022-05-11T13:56:00Z",
+  "deadline" : "2022-05-12T18:13:00Z",
+  "containers" : 30,
+  "cost_per_hour" : 2.6,
+  "destination" : 4,
+  "length" : 30,
+  "width" : 10,
+  "depth" : 30
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Vessel">Vessel</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteVessel"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /vessels/{vessel_id}</code></pre></div>
+    <div class="method-summary">Delete a Vessel (<span class="nickname">deleteVessel</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteVesselSchedule"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /vessels/{vessel_id}/schedule</code></pre></div>
+    <div class="method-summary">Delete a Vessel's Schedule (<span class="nickname">deleteVesselSchedule</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    204 No Content
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="replaceOrCreateVesselSchedule"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /vessels/{vessel_id}/schedule</code></pre></div>
+    <div class="method-summary">Replace or Create a Vessel's Schedule (<span class="nickname">replaceOrCreateVesselSchedule</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Schedule">Schedule</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Schedule">Schedule</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "vessel" : 1,
+  "manual" : true,
+  "berth" : 30,
+  "start" : "2022-05-11T16:32:00Z",
+  "end" : "2022-05-11T21:26:00Z"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Schedule">Schedule</a>
+    <h4 class="field-label">201</h4>
+    
+        <a href="#Schedule">Schedule</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="replaceVessel"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /vessels/{vessel_id}</code></pre></div>
+    <div class="method-summary">Replace a Vessel (<span class="nickname">replaceVessel</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Vessel">Vessel</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Vessel">Vessel</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Vessel 1",
+  "arrival" : "2022-05-11T13:56:00Z",
+  "deadline" : "2022-05-12T18:13:00Z",
+  "containers" : 30,
+  "cost_per_hour" : 2.6,
+  "destination" : 4,
+  "length" : 30,
+  "width" : 10,
+  "depth" : 30
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Vessel">Vessel</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveVessel"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vessels/{vessel_id}</code></pre></div>
+    <div class="method-summary">Retrieve a Vessel (<span class="nickname">retrieveVessel</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Vessel">Vessel</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "Vessel 1",
+  "arrival" : "2022-05-11T13:56:00Z",
+  "deadline" : "2022-05-12T18:13:00Z",
+  "containers" : 30,
+  "cost_per_hour" : 2.6,
+  "destination" : 4,
+  "length" : 30,
+  "width" : 10,
+  "depth" : 30
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Vessel">Vessel</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="retrieveVesselSchedule"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vessels/{vessel_id}/schedule</code></pre></div>
+    <div class="method-summary">Retrieve a Vessel's Schedule (<span class="nickname">retrieveVesselSchedule</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vessel_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the Vessel. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Schedule">Schedule</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "vessel" : 1,
+  "manual" : true,
+  "berth" : 30,
+  "start" : "2022-05-11T16:32:00Z",
+  "end" : "2022-05-11T21:26:00Z"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#Schedule">Schedule</a>
+    <h4 class="field-label">401</h4>
+    401 Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    403 Forbidden
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    404 Not Found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Berth"><code>Berth</code> - Berth</a></li>
+    <li><a href="#BerthID"><code>BerthID</code> - Berth ID</a></li>
+    <li><a href="#BerthMap"><code>BerthMap</code> - Berth Map</a></li>
+    <li><a href="#BerthSchedules"><code>BerthSchedules</code> - Berth Schedules</a></li>
+    <li><a href="#Changes"><code>Changes</code> - Changes</a></li>
+    <li><a href="#Email"><code>Email</code> - Email</a></li>
+    <li><a href="#Employee"><code>Employee</code> - Employee</a></li>
+    <li><a href="#EmployeeInput"><code>EmployeeInput</code> - Employee Input</a></li>
+    <li><a href="#EmployeeList"><code>EmployeeList</code> - Employee List</a></li>
+    <li><a href="#Employee_key"><code>Employee_key</code></a></li>
+    <li><a href="#Infeasibility"><code>Infeasibility</code> - Infeasibility</a></li>
+    <li><a href="#NullableSchedule"><code>NullableSchedule</code></a></li>
+    <li><a href="#NullableTimestamp"><code>NullableTimestamp</code></a></li>
+    <li><a href="#NullableVessel"><code>NullableVessel</code></a></li>
+    <li><a href="#OptionalVessel"><code>OptionalVessel</code> - Vessel</a></li>
+    <li><a href="#Performance"><code>Performance</code> - Performance</a></li>
+    <li><a href="#Port"><code>Port</code> - Port</a></li>
+    <li><a href="#PortDump"><code>PortDump</code> - Port Dump</a></li>
+    <li><a href="#PortID"><code>PortID</code> - Port ID</a></li>
+    <li><a href="#PortMap"><code>PortMap</code> - Port Map</a></li>
+    <li><a href="#PortSchedules"><code>PortSchedules</code> - Port Schedules</a></li>
+    <li><a href="#Reason"><code>Reason</code></a></li>
+    <li><a href="#Role"><code>Role</code> - Role</a></li>
+    <li><a href="#Schedule"><code>Schedule</code> - Schedule</a></li>
+    <li><a href="#ScheduleChange"><code>ScheduleChange</code> - Schedule Change</a></li>
+    <li><a href="#ScheduleChanges"><code>ScheduleChanges</code> - Schedule Changes</a></li>
+    <li><a href="#ScheduleChangesMap"><code>ScheduleChangesMap</code> - Schedule Changes Map</a></li>
+    <li><a href="#Terminal"><code>Terminal</code> - Terminal</a></li>
+    <li><a href="#TerminalID"><code>TerminalID</code> - Terminal ID</a></li>
+    <li><a href="#TerminalMap"><code>TerminalMap</code> - Terminal Map</a></li>
+    <li><a href="#TerminalSchedules"><code>TerminalSchedules</code> - Terminal Schedules</a></li>
+    <li><a href="#Time"><code>Time</code></a></li>
+    <li><a href="#Timestamp"><code>Timestamp</code></a></li>
+    <li><a href="#Vessel"><code>Vessel</code> - Vessel</a></li>
+    <li><a href="#VesselChange"><code>VesselChange</code> - Vessel Change</a></li>
+    <li><a href="#VesselChanges"><code>VesselChanges</code> - Vessel Changes</a></li>
+    <li><a href="#VesselChangesMap"><code>VesselChangesMap</code> - Vessel Changes Map</a></li>
+    <li><a href="#VesselID"><code>VesselID</code> - Vessel ID</a></li>
+    <li><a href="#VesselMap"><code>VesselMap</code> - Vessel Map</a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
+    <li><a href="#token_obtain_body"><code>token_obtain_body</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Berth"><code>Berth</code> - Berth</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Berth object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;terminal: &lt;code&gt;3&lt;/code&gt; (integer) - The Terminal where the Berth is located.&lt;/li&gt;
+&lt;li&gt;open_time: &lt;code&gt;06:45&lt;/code&gt; (time) - The time at which the Berth starts processing.&lt;/li&gt;
+&lt;li&gt;close_time: &lt;code&gt;21:30&lt;/code&gt; (time) - The time at which the Berth stops processing.&lt;/li&gt;
+&lt;li&gt;unload_speed: &lt;code&gt;6.3&lt;/code&gt; (decimal) - The amount of containers per time unit the Berth can process.&lt;/li&gt;
+&lt;li&gt;length: &lt;code&gt;150&lt;/code&gt; (integer) - The length of the Berth in metres.&lt;/li&gt;
+&lt;li&gt;width: &lt;code&gt;30&lt;/code&gt; (integer) - The maximum length of Vessel in the Berth in metres.&lt;/li&gt;
+&lt;li&gt;depth: &lt;code&gt;50&lt;/code&gt; (integer) - The depth of the Berth in metres.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">terminal </div><div class="param-desc"><span class="param-type"><a href="#TerminalID">TerminalID</a></span>  </div>
+<div class="param">open_time </div><div class="param-desc"><span class="param-type"><a href="#Time">Time</a></span>  </div>
+<div class="param">close_time </div><div class="param-desc"><span class="param-type"><a href="#Time">Time</a></span>  </div>
+<div class="param">unload_speed </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  format: real</div>
+<div class="param">length </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">width </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">depth </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BerthID"><code>BerthID</code> - Berth ID</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An ID of a Berth. Berth IDs are unique, and are generated by the database.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BerthMap"><code>BerthMap</code> - Berth Map</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Berth objects keyed by Berth ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BerthSchedules"><code>BerthSchedules</code> - Berth Schedules</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An array of Schedule objects.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Changes"><code>Changes</code> - Changes</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An array of Vessel Change and Schedule Change objects.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Email"><code>Email</code> - Email</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An email address for an Employee</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Employee"><code>Employee</code> - Employee</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;An Employee object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;email: &lt;code&gt;jdoe@tormails.com&lt;/code&gt; (string) - The email address of the Employee.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;key&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;hash: &lt;code&gt;U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg&#x3D;&#x3D;&lt;/code&gt; (byte) - The hash of the Employee&#x27;s password.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;salt: &lt;code&gt;9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk&#x3D;&lt;/code&gt; (byte) - The salt used to generate and validate the hash.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;role: &lt;code&gt;vessel planner&lt;/code&gt; (enum) - The role of the Employee.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;terminal: &lt;code&gt;1&lt;/code&gt; (number|null) - The ID of the Employee&#x27;s Terminal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;port: &lt;code&gt;null&lt;/code&gt; (number|null) - The ID of the Employee&#x27;s Port.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#Email">Email</a></span>  </div>
+<div class="param">key </div><div class="param-desc"><span class="param-type"><a href="#Employee_key">Employee_key</a></span>  </div>
+<div class="param">role </div><div class="param-desc"><span class="param-type"><a href="#Role">Role</a></span>  </div>
+<div class="param">terminal </div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">port </div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="EmployeeInput"><code>EmployeeInput</code> - Employee Input</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;An Employee Input object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;email: &lt;code&gt;jdoe@tormails.com&lt;/code&gt; (string) - The email address of the Employee.&lt;/li&gt;
+&lt;li&gt;password: &lt;code&gt;Password123&lt;/code&gt; (string) - The password of the Employee.&lt;/li&gt;
+&lt;li&gt;role: &lt;code&gt;vessel planner&lt;/code&gt; (enum) - The role of the Employee.&lt;/li&gt;
+&lt;li&gt;terminal: &lt;code&gt;1&lt;/code&gt; (number|null) - The ID of the Employee&#x27;s Terminal.&lt;/li&gt;
+&lt;li&gt;port: &lt;code&gt;null&lt;/code&gt; (number|null) - The ID of the Employee&#x27;s Port.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#Email">Email</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: password</div>
+          <div class="param-desc"><span class="param-type">example: Password123</span></div>
+<div class="param">role </div><div class="param-desc"><span class="param-type"><a href="#Role">Role</a></span>  </div>
+<div class="param">terminal </div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">port </div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="EmployeeList"><code>EmployeeList</code> - Employee List</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An array of Employee objects.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Employee_key"><code>Employee_key</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">hash </div><div class="param-desc"><span class="param-type"><a href="#ByteArray">byte[]</a></span>  format: byte</div>
+<div class="param">salt </div><div class="param-desc"><span class="param-type"><a href="#ByteArray">byte[]</a></span>  format: byte</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Infeasibility"><code>Infeasibility</code> - Infeasibility</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Infeasibility object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;valid: &lt;code&gt;false&lt;/code&gt; (boolean) - If the schedule is feasible.&lt;/li&gt;
+&lt;li&gt;reason: &lt;code&gt;Overlapping with vessels: 1, 2&lt;/code&gt; (string) - The reason why the schedule is infeasible, or empty if the schedule is feasible.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">valid </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+<div class="param">reason </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NullableSchedule"><code>NullableSchedule</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">vessel </div><div class="param-desc"><span class="param-type"><a href="#VesselID">VesselID</a></span>  </div>
+<div class="param">manual </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+<div class="param">berth </div><div class="param-desc"><span class="param-type"><a href="#BerthID">BerthID</a></span>  </div>
+<div class="param">start </div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">end (optional)</div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NullableTimestamp"><code>NullableTimestamp</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NullableVessel"><code>NullableVessel</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">arrival </div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">deadline (optional)</div><div class="param-desc"><span class="param-type"><a href="#NullableTimestamp">NullableTimestamp</a></span>  </div>
+<div class="param">containers </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">cost_per_hour </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  format: real</div>
+<div class="param">destination </div><div class="param-desc"><span class="param-type"><a href="#TerminalID">TerminalID</a></span>  </div>
+<div class="param">length </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">width </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">depth </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="OptionalVessel"><code>OptionalVessel</code> - Vessel</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Vessel object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;name: &lt;code&gt;BigBoatHan&lt;/code&gt; (string) - The name of the Vessel.&lt;/li&gt;
+&lt;li&gt;arrival: &lt;code&gt;2022-05-11T13:10:00Z&lt;/code&gt; (timestamp) - When the Vessel is expected to arrive.&lt;/li&gt;
+&lt;li&gt;deadline: &lt;code&gt;2022-05-12T09:54:00Z&lt;/code&gt; (timestamp) - When the Vessel must be completely unloaded.&lt;/li&gt;
+&lt;li&gt;containers: &lt;code&gt;5&lt;/code&gt; (integer) - The amount of containers on the Vessel to be unloaded.&lt;/li&gt;
+&lt;li&gt;cost_per_hour: &lt;code&gt;2.6&lt;/code&gt; (decimal) - The cost per hour from arrival till fully unloaded.&lt;/li&gt;
+&lt;li&gt;destination: &lt;code&gt;3&lt;/code&gt; (integer) - The terminal where the Vessel should be unloaded.&lt;/li&gt;
+&lt;li&gt;length: &lt;code&gt;30&lt;/code&gt; (integer) - The length of the Vessel in metres.&lt;/li&gt;
+&lt;li&gt;width: &lt;code&gt;10&lt;/code&gt; (integer) - The width of the Vessel in metres.&lt;/li&gt;
+&lt;li&gt;depth: &lt;code&gt;20&lt;/code&gt; (integer) - The depth of the Vessel in metres.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">arrival (optional)</div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">deadline (optional)</div><div class="param-desc"><span class="param-type"><a href="#NullableTimestamp">NullableTimestamp</a></span>  </div>
+<div class="param">containers (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">cost_per_hour (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  format: real</div>
+<div class="param">destination (optional)</div><div class="param-desc"><span class="param-type"><a href="#TerminalID">TerminalID</a></span>  </div>
+<div class="param">length (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">width (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">depth (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Performance"><code>Performance</code> - Performance</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Performance object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;cost: &lt;code&gt;5152.25&lt;/code&gt; (decimal) - The total cost of all scheduled vessels.&lt;/li&gt;
+&lt;li&gt;scheduled_vessels: &lt;code&gt;27&lt;/code&gt; (integer) - The amount of vessels with a schedule.&lt;/li&gt;
+&lt;li&gt;unscheduled_vessels: &lt;code&gt;14&lt;/code&gt; (integer) - The amount of vessels without a schedule.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">cost </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  format: real</div>
+<div class="param">scheduled_vessels </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">unscheduled_vessels </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Port"><code>Port</code> - Port</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Port object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;name: &lt;code&gt;Han Shipping&lt;/code&gt; (string) - The name of the Port.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PortDump"><code>PortDump</code> - Port Dump</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Port Dump contains all information about a Port (possibly restricted to a specific time range). It has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;version: &lt;code&gt;1&lt;/code&gt; (integer) - A single digit version of the Port Dump format.&lt;/li&gt;
+&lt;li&gt;name: &lt;code&gt;Han Shipping Scenario 3&lt;/code&gt; (string) - The name of the Port Dump.&lt;/li&gt;
+&lt;li&gt;terminals: &lt;code&gt;{&amp;quot;terminal3&amp;quot;:{&amp;quot;name&amp;quot;:&amp;quot;North&amp;quot;,&amp;quot;port&amp;quot;:&amp;quot;port2&amp;quot;}}&lt;/code&gt; (json) - All Terminals of the Port.&lt;/li&gt;
+&lt;li&gt;berths: &lt;code&gt;{&amp;quot;berth5&amp;quot;:{&amp;quot;open&amp;quot;:&amp;quot;06:15:00&amp;quot;,&amp;quot;close&amp;quot;:&amp;quot;19:50:00&amp;quot;,&amp;quot;depth&amp;quot;:4,&amp;quot;width&amp;quot;:5,&amp;quot;length&amp;quot;:18,&amp;quot;terminal&amp;quot;:&amp;quot;terminal3&amp;quot;,&amp;quot;unload_speed&amp;quot;:16}}&lt;/code&gt; (json) - All Berths that fall under a Terminal of the Port.&lt;/li&gt;
+&lt;li&gt;vessels: &lt;code&gt;{&amp;quot;vessel9&amp;quot;:{&amp;quot;name&amp;quot;:&amp;quot;Llandaff&amp;quot;,&amp;quot;depth&amp;quot;:3,&amp;quot;width&amp;quot;:5,&amp;quot;length&amp;quot;:2,&amp;quot;arrival&amp;quot;:&amp;quot;2022-06-23T12:30:00Z&amp;quot;,&amp;quot;deadline&amp;quot;:&amp;quot;2022-06-25T23:00:00Z&amp;quot;,&amp;quot;containers&amp;quot;:12,&amp;quot;destination&amp;quot;:&amp;quot;terminal3&amp;quot;,&amp;quot;cost_per_hour&amp;quot;:14}}&lt;/code&gt; (json) - All Vessels scheduled for a Terminal of the Port (within the provided time range).&lt;/li&gt;
+&lt;li&gt;schedules: &lt;code&gt;[{&amp;quot;berth&amp;quot;:&amp;quot;berth5&amp;quot;,&amp;quot;start&amp;quot;:&amp;quot;2022-06-23T13:30:00Z&amp;quot;,&amp;quot;manual&amp;quot;:true,&amp;quot;vessel&amp;quot;:&amp;quot;vessel10&amp;quot;,&amp;quot;expected_end&amp;quot;:&amp;quot;2022-06-23T14:15:00Z&amp;quot;}]&lt;/code&gt; (json) - All Schedules of Berths that fall under a Terminal of the Port (within the provided time range).&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">version </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Han Shipping Scenario 3</span></div>
+<div class="param">terminals </div><div class="param-desc"><span class="param-type"><a href="#TerminalMap">TerminalMap</a></span>  </div>
+<div class="param">berths </div><div class="param-desc"><span class="param-type"><a href="#BerthMap">BerthMap</a></span>  </div>
+<div class="param">vessels </div><div class="param-desc"><span class="param-type"><a href="#VesselMap">VesselMap</a></span>  </div>
+<div class="param">schedules </div><div class="param-desc"><span class="param-type"><a href="#BerthSchedules">BerthSchedules</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PortID"><code>PortID</code> - Port ID</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An ID of a Port. Port IDs are unique, and are generated by the database.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PortMap"><code>PortMap</code> - Port Map</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Port objects keyed by Port ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PortSchedules"><code>PortSchedules</code> - Port Schedules</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Terminal Schedules, keyed by Terminal ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Reason"><code>Reason</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Role"><code>Role</code> - Role</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A Role that an Employee might have</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Schedule"><code>Schedule</code> - Schedule</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Schedule object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vessel: &lt;code&gt;1&lt;/code&gt; (integer) - ID of the Vessel.&lt;/li&gt;
+&lt;li&gt;manual: &lt;code&gt;false&lt;/code&gt; (boolean) - True if the Vessel should be planned at the supplied Berth and timestamp or false if it should be planned by the software.&lt;/li&gt;
+&lt;li&gt;berth: &lt;code&gt;20&lt;/code&gt; (integer) - ID of the Berth the Vessel should be unloaded at.&lt;/li&gt;
+&lt;li&gt;start: &lt;code&gt;2022-05-12T07:23:00Z&lt;/code&gt; (timestamp) - When the Vessel should start being unloaded.&lt;/li&gt;
+&lt;li&gt;end: &lt;code&gt;2022-05-13T21:41:00Z&lt;/code&gt; (timestamp) - When the Vessel is expected to end being unloaded.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;berth&lt;/code&gt; and &lt;code&gt;start&lt;/code&gt; attributes are not necessary if the &lt;code&gt;type&lt;/code&gt; is &lt;code&gt;automatic&lt;/code&gt;. The &lt;code&gt;end&lt;/code&gt; attribute will be calculated by the server.&lt;/p&gt;
+</div>
+    <div class="field-items">
+      <div class="param">vessel </div><div class="param-desc"><span class="param-type"><a href="#VesselID">VesselID</a></span>  </div>
+<div class="param">manual </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+<div class="param">berth </div><div class="param-desc"><span class="param-type"><a href="#BerthID">BerthID</a></span>  </div>
+<div class="param">start </div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">end (optional)</div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ScheduleChange"><code>ScheduleChange</code> - Schedule Change</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Vessel Change object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vessel: &lt;code&gt;1&lt;/code&gt; (integer) - The ID of the Schedule&#x27;s Vessel.&lt;/li&gt;
+&lt;li&gt;date: &lt;code&gt;2022-05-11T16:32:35Z&lt;/code&gt; (timestamp) - The date at which the change was made.&lt;/li&gt;
+&lt;li&gt;old: &lt;code&gt;{&amp;quot;vessel&amp;quot;:30,&amp;quot;manual&amp;quot;:true,&amp;quot;berth&amp;quot;:20,&amp;quot;start&amp;quot;:&amp;quot;2022-05-15T16:32:00.000Z&amp;quot;,&amp;quot;end&amp;quot;:&amp;quot;2022-05-15T21:26:00.000Z&amp;quot;}&lt;/code&gt; (json) - The Schedule before being changed.&lt;/li&gt;
+&lt;li&gt;new: &lt;code&gt;{&amp;quot;vessel&amp;quot;:30,&amp;quot;manual&amp;quot;:false,&amp;quot;berth&amp;quot;:20,&amp;quot;start&amp;quot;:&amp;quot;2022-05-15T16:32:00.000Z&amp;quot;,&amp;quot;end&amp;quot;:&amp;quot;2022-05-15T21:26:00.000Z&amp;quot;}&lt;/code&gt; (json) - The Schedule after being changed.&lt;/li&gt;
+&lt;li&gt;reason: &lt;code&gt;Turn on automatic scheduling&lt;/code&gt; (string) - The reason for the change.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">vessel </div><div class="param-desc"><span class="param-type"><a href="#VesselID">VesselID</a></span>  </div>
+<div class="param">date </div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">old </div><div class="param-desc"><span class="param-type"><a href="#NullableSchedule">NullableSchedule</a></span>  </div>
+<div class="param">new </div><div class="param-desc"><span class="param-type"><a href="#Schedule">Schedule</a></span>  </div>
+<div class="param">reason </div><div class="param-desc"><span class="param-type"><a href="#Reason">Reason</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ScheduleChanges"><code>ScheduleChanges</code> - Schedule Changes</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An array of Schedule Change objects.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ScheduleChangesMap"><code>ScheduleChangesMap</code> - Schedule Changes Map</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Schedule Changes keyed by a Schedule&#x27;s Vessel ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Terminal"><code>Terminal</code> - Terminal</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Terminal object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;port: &lt;code&gt;2&lt;/code&gt; (integer) - The Port where the Terminal is located.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;name: &lt;code&gt;Han &amp;amp; Co. Ltd.&lt;/code&gt; (string) - The name of the Terminal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">port </div><div class="param-desc"><span class="param-type"><a href="#PortID">PortID</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TerminalID"><code>TerminalID</code> - Terminal ID</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An ID of a Terminal. Terminal IDs are unique, and are generated by the database.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TerminalMap"><code>TerminalMap</code> - Terminal Map</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Terminal objects keyed by Terminal ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TerminalSchedules"><code>TerminalSchedules</code> - Terminal Schedules</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Berth Schedules, keyed by Berth ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Time"><code>Time</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Timestamp"><code>Timestamp</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Vessel"><code>Vessel</code> - Vessel</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Vessel object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;name: &lt;code&gt;BigBoatHan&lt;/code&gt; (string) - The name of the Vessel.&lt;/li&gt;
+&lt;li&gt;arrival: &lt;code&gt;2022-05-11T13:10:00Z&lt;/code&gt; (timestamp) - When the Vessel is expected to arrive.&lt;/li&gt;
+&lt;li&gt;deadline: &lt;code&gt;2022-05-12T09:54:00Z&lt;/code&gt; (timestamp) - When the Vessel must be completely unloaded.&lt;/li&gt;
+&lt;li&gt;containers: &lt;code&gt;5&lt;/code&gt; (integer) - The amount of containers on the Vessel to be unloaded.&lt;/li&gt;
+&lt;li&gt;cost_per_hour: &lt;code&gt;2.6&lt;/code&gt; (decimal) - The cost per hour from arrival till fully unloaded.&lt;/li&gt;
+&lt;li&gt;destination: &lt;code&gt;3&lt;/code&gt; (integer) - The terminal where the Vessel should be unloaded.&lt;/li&gt;
+&lt;li&gt;length: &lt;code&gt;30&lt;/code&gt; (integer) - The length of the Vessel in metres.&lt;/li&gt;
+&lt;li&gt;width: &lt;code&gt;10&lt;/code&gt; (integer) - The width of the Vessel in metres.&lt;/li&gt;
+&lt;li&gt;depth: &lt;code&gt;20&lt;/code&gt; (integer) - The depth of the Vessel in metres.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">arrival </div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">deadline (optional)</div><div class="param-desc"><span class="param-type"><a href="#NullableTimestamp">NullableTimestamp</a></span>  </div>
+<div class="param">containers </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">cost_per_hour </div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  format: real</div>
+<div class="param">destination </div><div class="param-desc"><span class="param-type"><a href="#TerminalID">TerminalID</a></span>  </div>
+<div class="param">length </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">width </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">depth </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VesselChange"><code>VesselChange</code> - Vessel Change</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>&lt;p&gt;A Vessel Change object has the following attributes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vessel: &lt;code&gt;1&lt;/code&gt; (integer) - The ID of the Vessel.&lt;/li&gt;
+&lt;li&gt;date: &lt;code&gt;2022-05-11T16:32:35Z&lt;/code&gt; (timestamp) - The date at which the change was made.&lt;/li&gt;
+&lt;li&gt;old: &lt;code&gt;{&amp;quot;name&amp;quot;:&amp;quot;Vessel 1&amp;quot;,&amp;quot;arrival&amp;quot;:&amp;quot;2022-05-11T13:56:00.000Z&amp;quot;,&amp;quot;deadline&amp;quot;:&amp;quot;2022-05-12T18:13:00.000Z&amp;quot;,&amp;quot;containers&amp;quot;:30,&amp;quot;cost_per_hour&amp;quot;:2.6,&amp;quot;destination&amp;quot;:4,&amp;quot;length&amp;quot;:30,&amp;quot;width&amp;quot;:10,&amp;quot;depth&amp;quot;:30}&lt;/code&gt; (json) - The Vessel before being changed.&lt;/li&gt;
+&lt;li&gt;new: &lt;code&gt;{&amp;quot;name&amp;quot;:&amp;quot;New Vessel 1&amp;quot;,&amp;quot;arrival&amp;quot;:&amp;quot;2022-05-11T13:56:00.000Z&amp;quot;,&amp;quot;deadline&amp;quot;:&amp;quot;2022-05-12T18:13:00.000Z&amp;quot;,&amp;quot;containers&amp;quot;:40,&amp;quot;cost_per_hour&amp;quot;:2.6,&amp;quot;destination&amp;quot;:4,&amp;quot;length&amp;quot;:30,&amp;quot;width&amp;quot;:10,&amp;quot;depth&amp;quot;:30}&lt;/code&gt; (json) - The Vessel after being changed.&lt;/li&gt;
+&lt;li&gt;reason: &lt;code&gt;Additional cargo (#2524)&lt;/code&gt; (string) - The reason for the change.&lt;/li&gt;
+&lt;/ul&gt;
+</div>
+    <div class="field-items">
+      <div class="param">vessel </div><div class="param-desc"><span class="param-type"><a href="#VesselID">VesselID</a></span>  </div>
+<div class="param">date </div><div class="param-desc"><span class="param-type"><a href="#Timestamp">Timestamp</a></span>  </div>
+<div class="param">old </div><div class="param-desc"><span class="param-type"><a href="#NullableVessel">NullableVessel</a></span>  </div>
+<div class="param">new </div><div class="param-desc"><span class="param-type"><a href="#Vessel">Vessel</a></span>  </div>
+<div class="param">reason </div><div class="param-desc"><span class="param-type"><a href="#Reason">Reason</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VesselChanges"><code>VesselChanges</code> - Vessel Changes</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An array of Vessel Change objects.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VesselChangesMap"><code>VesselChangesMap</code> - Vessel Changes Map</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Vessel Changes keyed by Vessel ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VesselID"><code>VesselID</code> - Vessel ID</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An ID of a Vessel. Vessel IDs are unique, and are generated by the database.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VesselMap"><code>VesselMap</code> - Vessel Map</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A map of Vessel objects keyed by Vessel ID.</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">token </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: jwt</div>
+          <div class="param-desc"><span class="param-type">example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTY0NjAzMTEsImV4cCI6MTY1NjQ2MDM0MSwibmJmIjoxNjU2NDYwMTMxLCJ1c2VyIjoiamFuZXQ2OEB0b3JtYWlscy5jb20ifQ.Ap9vlr4sJ45Edd90vNc6K0RCYAJs1fPfIcnJWo098I1TMgARBM7yP4paf6nK1zZs4w7VXhxKY_kx9WAAu_8oIA</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="token_obtain_body"><code>token_obtain_body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#Email">Email</a></span>  </div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: password</div>
+          <div class="param-desc"><span class="param-type">example: Password123</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

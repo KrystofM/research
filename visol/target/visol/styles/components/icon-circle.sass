@@ -1,0 +1,43 @@
+.icon-circle
+	&-in
+		+flex(center)
+		+size(34px)
+		border-radius: 50%
+		transition: transform $animation-length
+		transform: scale(1)
+
+	&.view-primary &-in
+		background-color: $c-secondary
+		color: $c-primary
+
+	&.view-closed &-in
+		background-color: $c-inactive
+		color: $c-background
+
+	&.view-default,
+	&.view-add-vessel
+		cursor: pointer
+	&.view-default:hover &-in,
+	&.view-add-vessel:hover &-in
+		transform: scale(0.97)
+
+	&.view-default &-in
+		background-color: $c-background
+		color: $c-text
+		border: 1px solid $c-stroke
+		cursor: pointer
+		filter: drop-shadow(0px 4px 6px rgba(235, 235, 235, 0.35))
+
+	&.view-berth &-in
+		background-color: $c-berth-light
+		color: $c-berth
+
+	&.view-add-vessel &-in
+		background-color: $c-primary
+		color: $c-background
+		+size(50px)
+		filter: drop-shadow(0px 5px 6px rgba(76, 166, 168, 0.25))
+
+	&.view-infeasible &-in
+		background-color: #FD5050
+		color: $c-background

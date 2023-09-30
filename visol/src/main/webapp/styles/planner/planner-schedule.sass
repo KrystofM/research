@@ -1,0 +1,44 @@
+.planner
+	&-schedule
+		display: flex
+		max-height: calc(100vh - 255px)
+		min-height: 400px
+		overflow: scroll
+		border: 1px solid $c-stroke
+		border-radius: $border-radius
+
+		&-in
+			+size(auto ($day-view-height + $berth-header-height))
+			+relative
+			+flex(flex-start, flex-start)
+			flex-shrink: 0
+			min-width: 100%
+			padding-right: $sidebar-width - 2px
+
+			&::before
+				+size($timeline-width $berth-header-height)
+				+sticky(0 null null 0)
+				content: ""
+				background: $c-background
+				border-right: 1px solid $c-stroke
+				border-bottom: 1px solid $c-stroke
+				display: block
+				z-index: 5
+
+		&-actions
+			+absolute(null ($base-spacing * 5 + $sidebar-width) $base-spacing * 5 null)
+			z-index: 10
+			+flex(center, center)
+			flex-direction: column
+			transition: .2s ease
+
+			& .icon-circle
+				padding-top: $base-spacing*2
+
+		.actions-replaced
+			right: $base-spacing * 5 + $sidebar-width + $sidebar-content-width
+			transition: .2s ease
+
+	&-schedule.view-day &
+		&-timeline-divider
+			+size(100% $day-view-divider-height)

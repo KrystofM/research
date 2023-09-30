@@ -1,0 +1,47 @@
+$field-size: 2rem
+
+.unscheduled-vessels
+	width: 90%
+	margin-right: auto
+	margin-left: auto
+
+	&-body
+		+flex(flex-start, center)
+		flex-direction: row
+		border: 1px solid $c-stroke
+		border-radius: 10px
+		padding: $base-spacing * 3
+		margin: $base-spacing 0px
+
+	&-headers
+		+flex(flex-start, flex-center)
+		flex-direction: column
+		width: 20%
+
+.has-icon-beginning
+	+relative
+	width: 90%
+
+	.form-control
+
+		&-icon
+			+absolute(null #{1*$base-spacing} null null)
+			+size($field-size)
+			display: block
+			line-height: $field-size
+			z-index: 2
+			text-align: center
+			pointer-events: none
+			color: $c-inactive
+
+	input
+		height: 35px
+		border: 1px solid $c-stroke
+
+	input::placeholder
+		font-size: 14px
+		font-style: italic
+
+	input:focus
+		outline: none
+		box-shadow: none

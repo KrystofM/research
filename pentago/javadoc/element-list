@@ -1,0 +1,9 @@
+pentago.game
+pentago.game.models
+pentago.networking.client
+pentago.networking.dto
+pentago.networking.mappers
+pentago.networking.models
+pentago.networking.server
+pentago.test
+pentago.utils

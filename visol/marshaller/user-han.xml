@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user>
+    <name>Han</name>
+    <email>han@hankong.com</email>
+    <password>5576a8b13216aba904f822311891a378f7a0e365eb85f24979657f6f47fd2f91</password>
+    <salt_and_pepper>279d1c93c89763d8b89b63704b5fb72e308391acbb767409435d1a2a39775ab2</salt_and_pepper>
+    <role>authority</role>
+    <portId>1</portId>
+</user>

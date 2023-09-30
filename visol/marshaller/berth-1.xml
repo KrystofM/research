@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<berth>
+    <id>1</id>
+    <terminal>1</terminal>
+    <open>08:00:00</open>
+    <unload_speed>4.2</unload_speed>
+    <width>30</width>
+    <depth>20</depth>
+    <length>250</length>
+</berth>

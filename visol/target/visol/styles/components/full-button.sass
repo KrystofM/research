@@ -1,0 +1,39 @@
+.full-button
+	+flex(center, center)
+	font-weight: 600
+	font-size: 14px
+	border: 1px solid $c-primary
+	padding: $base-spacing * 0.6
+	border-radius: $border-radius
+	appearance: none
+	transition: transform $animation-length
+	transform: scale(1)
+
+	&:hover
+		transform: scale(0.97)
+
+	&.view-primary
+		background-color: $c-primary
+		color: $c-background
+		border-color: $c-primary
+
+	&.view-secondary
+		background-color: $c-secondary
+		color: $c-primary
+		border-color: $c-secondary
+
+	&.view-disabled
+		background-color: $c-stroke
+		color: $c-background
+		border-color: $c-stroke
+		cursor: default
+		pointer-events: none
+
+		&:hover
+			transform: none
+
+	&.size-medium
+		+size(100px null)
+
+	&.size-large
+		+size(140px null)
