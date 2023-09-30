@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vessel>
+    <id>1</id>
+    <name>BigBoatHan</name>
+    <containers>12</containers>
+    <destination>1</destination>
+    <arrival>2022-06-16T09:14:43Z</arrival>
+    <deadline>2022-06-18T12:59:01Z</deadline>
+    <cost_per_hour>0.0</cost_per_hour>
+    <width>20</width>
+    <length>80</length>
+    <depth>15</depth>
+</vessel>

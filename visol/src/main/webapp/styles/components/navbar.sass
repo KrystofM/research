@@ -1,0 +1,27 @@
+.navigation
+	width: 100%
+	+sticky(0 null null null)
+	+flex
+	background-color: white
+	padding: $base-spacing*3 $base-spacing*5 !important
+	z-index: 1000
+
+	&-left,
+	&-mid,
+	&-right
+		+flex(center)
+		flex: 1
+		gap: 12px
+
+	&-left-in,
+	&-right-in
+		+flex(center)
+
+	&-left-in
+		margin-right: auto
+	&-right-in
+		margin-left: auto
+
+	&-brand-logo
+		width: 8ch
+

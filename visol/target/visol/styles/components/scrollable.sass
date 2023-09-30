@@ -1,0 +1,15 @@
+.scrollable-container
+	+flex(flex-start, center)
+	flex-direction: row
+	width: 80%
+	overflow-x: auto
+
+	&-empty, &-empty-search
+		+flex(center, center)
+		+size(100%)
+		font-style: italic
+		color: $c-inactive
+
+	&-empty-search
+		display: none
+

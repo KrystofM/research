@@ -1,0 +1,130 @@
+.sidebar
+	+absolute()
+	right: 0px
+	width: $sidebar-width
+	max-height: calc(100vh - 255px)
+	min-height: 400px
+	height: 100%
+	border: 1px solid $c-stroke
+	background-color: $c-background
+	z-index: 10
+	bottom: 0px // haha
+	border-top-right-radius: $border-radius
+	border-bottom-right-radius: $border-radius
+
+	&-body
+		+flex(center,center)
+		flex-direction: column
+		gap: 10px
+		height: 100%
+
+		&-item
+			+flex(center, center)
+			width: 36px
+			height: 36px
+			border-radius: $border-radius
+			cursor: pointer
+			transition: .2s ease
+
+		&-item::before
+			position: absolute
+			content: ""
+			background-color: $c-primary
+			width: 1px
+			height: 40px
+			left: 0
+			border-radius: $border-radius
+			opacity: 0
+			transition: .2s ease
+
+		&-item:hover, .sidebar-active
+			background-color: $c-secondary
+			transition: .2s ease
+
+			& icon-plain .view-sidebar
+				color: $c-primary
+
+		.sidebar-active
+			&::before
+				opacity: 1
+				transition: .2s ease
+
+		&-item:active
+			background-color: rgba($c-secondary, 0.5)
+			transition: .2s ease
+
+		&-item:active icon-plain .view-sidebar
+			color: rgba($c-primary, 0.5)
+			transition: .2s ease
+
+		&-content
+			+absolute()
+			+flex(flex-start, flex-start, column)
+			font-family: $font-family-base
+			font-size: 14px
+			gap: 20px
+			background-color: $c-background
+			border-right: 1px solid $c-stroke
+			border-left: 1px solid $c-stroke
+			width: $sidebar-content-width
+			height: 100%
+			right: 25px
+			padding: $base-spacing * 5
+			opacity: 0
+			visibility: hidden
+			transition: .2s ease
+			z-index: -10
+
+			&-close
+				cursor: pointer
+				opacity: .5
+				transition: .2s ease
+
+			&-close:hover
+				opacity: 1
+				transition: .2s ease
+
+			&-header, &-list-item
+				+flex(space-between, center, row)
+				width: 100%
+
+			&-header
+				font-weight: bold
+
+			&-list
+				+flex(center, center, column)
+				width: 100%
+
+				.form-group
+					width: 100%
+
+			&-body
+				width: 100%
+				overflow-x: hidden
+				overflow-y: auto
+				scrollbar-width: none /* Firefox */
+
+				&::-webkit-scrollbar
+					display: none /* Chromium, Safari */
+
+				.card
+					&-body
+						dl
+							dd
+								margin-bottom: 0
+
+								&.old
+									background-color: rgba(var(--bs-warning-rgb), 0.5)
+									padding: 0.1875em
+								&.new
+									background-color: rgba(var(--bs-success-rgb), 0.5)
+									padding: 0.1875em
+
+								span
+									color: $c-text-light
+
+			&.content-reveal
+				right: $sidebar-width - 2
+				visibility: visible
+				opacity: 1
+				transition: .2s ease

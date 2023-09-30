@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schedule>
+    <vessel>1</vessel>
+    <berth>1</berth>
+    <manual>true</manual>
+    <start>2022-06-16T13:59:01Z</start>
+    <expected_end>2022-06-16T15:32:01Z</expected_end>
+</schedule>

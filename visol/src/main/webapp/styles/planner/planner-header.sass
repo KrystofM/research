@@ -1,0 +1,41 @@
+.planner
+	+relative
+	margin: 0 auto $base-spacing
+
+	&-header
+		+flex(center)
+		width: 100%
+		margin-bottom: $base-spacing*3
+
+		&-sub
+			+flex(center)
+			flex: 1
+
+			&-in
+				+flex(center)
+
+				& > *:not(:last-child)
+					margin-right: $base-spacing*3
+
+			&:first-child > &-in
+				margin-right: auto
+
+			&:last-child > &-in
+				margin-left: auto
+
+		&-date
+			width: 150px
+			+relative
+			font-size: 18px
+			font-weight: 600
+			padding: 0 $base-spacing*4
+			margin: 0
+			text-align: center
+			cursor: pointer
+
+			&-input
+				+absolute(0 null null 0)
+				+size(100%)
+				opacity: 0
+				visibility: hidden
+				appearance: none

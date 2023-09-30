@@ -1,0 +1,57 @@
+.planner
+	&-current
+		+absolute(null null null 0)
+		+size(100% $current-label-height)
+
+		&-holder
+			+absolute(0 null null 0)
+			+size(100%)
+
+		&-wrap
+			+absolute(0 null null 0)
+			+size(100%)
+			z-index: 4
+			flex-shrink: 0
+			pointer-events: none
+
+		&::before
+			content: ""
+			+size(100% 2px)
+			+absolute(50% null null 0)
+			background-color: $c-primary
+			transform: translateY(-50%)
+			z-index: -1
+			display: block
+
+		&-in
+			+sticky(null null null $current-padding-left)
+			+flex(center, center)
+			+size(45px $current-label-height)
+			background-color: $c-primary
+
+			&::before
+				content: ""
+				+size($current-padding-left 100%)
+				+absolute(null null null -#{$current-padding-left})
+				background-color: $c-background
+				display: block
+
+			&::after
+				content: ""
+				+size(0)
+				+absolute(null -#{$current-arrow-size} null null)
+				background-color: transparent
+				border-left: $current-arrow-size solid $c-primary
+				border-top: $current-label-height*0.5 solid transparent
+				border-bottom: $current-label-height*0.5 solid transparent
+				display: block
+
+		&-time
+			display: inline-block
+			color: $c-background
+			font-size: 13px
+			margin: 0
+
+			&::before
+				content: ""
+				background-color: $c-primary

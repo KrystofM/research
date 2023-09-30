@@ -1,0 +1,86 @@
+.vessel-card
+	+flex(flex-start, flex-start)
+	+relative()
+	flex-wrap: wrap
+	height: 100%
+	padding: $base-spacing * 2
+	background-color: rgba($c-background-muted, 0.8)
+	backdrop-filter: blur(8px)
+	border-radius: $border-radius
+	cursor: pointer
+
+	&-info
+		+flex(space-between, center)
+		width: 100%
+		gap: $base-spacing * 2
+
+		&-in,
+		&-right
+			+flex(space-between, flex-start)
+			flex-direction: column
+			height: 30px
+
+		&-left
+			+flex(center)
+			gap: 12px
+
+		&-right
+			align-items: flex-end !important
+			text-align: right
+
+		&-heading
+			font-weight: 600
+			font-size: 11px
+			margin: 0
+			padding: 0
+
+		&-description
+			font-size: 10px
+
+		&-message
+			font-size: 10px
+
+	&-footer
+		+absolute()
+		right: 10px
+		bottom: 10px
+
+	&.view-automatic,
+	&.view-manual
+		+absolute(null $base-spacing null $base-spacing)
+		color: $c-primary
+
+	&.view-infeasible
+		+absolute()
+		background-color: $c-warning
+		color: $c-background
+		box-shadow: rgba(#000000, 0.2) 0px 0px 4px 0px
+		right: $base-spacing
+
+		&:hover
+			backdrop-filter: blur(8px)
+
+	&.view-infeasible &-info-in
+		padding-left: 0px
+		padding-top: $base-spacing
+
+	&.view-automatic &-info,
+	&.view-manual &-info,
+	&.view-infeasible &-info
+		+flex()
+		flex-wrap: wrap
+		+sticky(($berth-header-height + 2*$base-spacing) null null null)
+
+	&.view-unscheduled
+		+flex(flex-start, flex-start)
+		min-width: 250px
+		max-width: 300px
+		width: 15vw
+		height: 70%
+		color: $c-primary
+		margin: 0 $base-spacing * 1.8
+		box-shadow: none
+
+	&.view-unscheduled &-info-in
+		+flex(center, flex-start)
+

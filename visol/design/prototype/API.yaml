@@ -1,0 +1,2753 @@
+openapi: 3.0.0
+info:
+  title: ViSOL
+  description: >-
+    Visual Interactive Optimization Tool.
+  contact: { }
+  version: 1.0.0
+servers:
+  - url: 'https://visol1.paas.hosted-by-previder.com/api/v1'
+    variables: { }
+paths:
+  /token/obtain:
+    post:
+      tags:
+        - Token
+      summary: Obtain a token
+      operationId: obtainToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  $ref: '#/components/schemas/Email'
+                password:
+                  type: string
+                  format: password
+                  pattern: '^(?:.|\s)*$'
+                  maxLength: 1073741824
+                  example: Password123
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: jwt
+                    example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTY0NjAzMTEsImV4cCI6MTY1NjQ2MDM0MSwibmJmIjoxNjU2NDYwMTMxLCJ1c2VyIjoiamFuZXQ2OEB0b3JtYWlscy5jb20ifQ.Ap9vlr4sJ45Edd90vNc6K0RCYAJs1fPfIcnJWo098I1TMgARBM7yP4paf6nK1zZs4w7VXhxKY_kx9WAAu_8oIA
+                additionalProperties: false
+                required: [token]
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /token/verify:
+    get:
+      tags:
+        - Token
+      summary: Verify a token
+      operationId: verifyToken
+      responses:
+        '200':
+          description: 200 OK
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /employees:
+    post:
+      tags:
+        - Employees
+      summary: Create an Employee
+      operationId: createEmployee
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeInput'
+      responses:
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/employees\/[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'
+                maxLength: 75
+                example: /employees/jdoe@tormails.com
+              description: The URL of the newly created Employee.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags:
+        - Employees
+      summary: Retrieve all Employees
+      operationId: retrieveAllEmployees
+      parameters: [ ]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /employees/{employee_email}:
+    parameters:
+      - name: employee_email
+        in: path
+        description: >-
+          The email address of the employee.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Email'
+    get:
+      tags:
+        - Employees
+      summary: Retrieve an Employee
+      operationId: retrieveEmployee
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - Employees
+      summary: Replace an Employee
+      operationId: replaceEmployee
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeInput'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Employees
+      summary: Delete an Employee
+      operationId: deleteEmployee
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /vessels:
+    post:
+      tags:
+        - Vessels
+      summary: Create a Vessel
+      operationId: createVessel
+      parameters:
+        - in: header
+          name: Reason
+          schema:
+            $ref: '#/components/schemas/Reason'
+          required: false
+          description: The reason for which the Vessel was created.
+          example: New vessel inbound (#142)
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vessel'
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/vessels\/[0-9]{1,10}$'
+                maxLength: 19
+                example: /vessels/3
+              description: The URL of the newly created Vessel.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vessel'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/vessels/{vessel_id}':
+    parameters:
+      - name: vessel_id
+        in: path
+        description: ID of the Vessel.
+        required: true
+        schema:
+          $ref: '#/components/schemas/VesselID'
+    get:
+      tags:
+        - Vessels
+      summary: Retrieve a Vessel
+      operationId: retrieveVessel
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vessel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - Vessels
+      summary: Replace a Vessel
+      operationId: replaceVessel
+      parameters:
+        - in: header
+          name: Reason
+          schema:
+            $ref: '#/components/schemas/Reason'
+          required: false
+          description: The reason for which the Vessel was created.
+          example: Additional cargo (#2524)
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vessel'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vessel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Vessels
+      summary: Delete a Vessel
+      operationId: deleteVessel
+      parameters:
+        - in: header
+          name: Reason
+          schema:
+            $ref: '#/components/schemas/Reason'
+          required: false
+          description: The reason for which the Vessel was deleted.
+          example: Will no longer arrive in this port
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/vessels/{vessel_id}/schedule':
+    parameters:
+      - name: vessel_id
+        in: path
+        description: ID of the Vessel.
+        required: true
+        schema:
+          $ref: '#/components/schemas/VesselID'
+    get:
+      tags:
+        - Vessels
+      summary: Retrieve a Vessel's Schedule
+      operationId: retrieveVesselSchedule
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - Vessels
+      summary: Replace or Create a Vessel's Schedule
+      operationId: replaceOrCreateVesselSchedule
+      parameters:
+        - in: header
+          name: Reason
+          schema:
+            $ref: '#/components/schemas/Reason'
+          required: false
+          description: The reason for which the Schedule was replaced/updated.
+          example: Automatic scheduling job
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/vessels\/[0-9]{1,10}\/schedule$'
+                maxLength: 28
+                example: /vessels/1/schedule
+              description: The URL of the newly created Schedule.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Vessels
+      summary: Delete a Vessel's Schedule
+      operationId: deleteVesselSchedule
+      parameters:
+        - in: header
+          name: Reason
+          schema:
+            $ref: '#/components/schemas/Reason'
+          required: false
+          description: The reason for which the Schedule was deleted.
+          example: Delayed for an indeterminate amount of time
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/vessels/{vessel_id}/schedule/valid':
+      parameters:
+        - name: vessel_id
+          in: path
+          description: ID of the Vessel.
+          required: true
+          schema:
+            $ref: '#/components/schemas/VesselID'
+      get:
+        tags:
+          - Vessels
+        summary: Check if there is an infeasibility in the Vessel's Schedule
+        operationId: checkVesselScheduleValid
+        responses:
+          '200':
+            description: ''
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Infeasibility'
+          '404':
+            $ref: '#/components/responses/NotFound'
+          '401':
+            $ref: '#/components/responses/Unauthorized'
+          '403':
+            $ref: '#/components/responses/Forbidden'
+  /berths:
+    post:
+      tags:
+        - Berths
+      summary: Create a Berth
+      operationId: createBerth
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Berth'
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/berths\/[0-9]{1,10}$'
+                maxLength: 18
+                example: /berths/3
+              description: The URL of the newly created Berth.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Berth'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/berths/{berth_id}':
+    parameters:
+      - name: berth_id
+        in: path
+        description: The ID of the Berth.
+        required: true
+        schema:
+          $ref: '#/components/schemas/BerthID'
+    get:
+      tags:
+        - Berths
+      summary: Retrieve a Berth
+      operationId: retrieveBerth
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Berth'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - Berths
+      summary: Replace a Berth
+      operationId: replaceBerth
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Berth'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Berth'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Berths
+      summary: Delete a Berth
+      operationId: deleteBerth
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/berths/{berth_id}/schedules':
+    parameters:
+      - name: berth_id
+        in: path
+        description: The ID of the Berth.
+        required: true
+        schema:
+          $ref: '#/components/schemas/BerthID'
+    get:
+      tags:
+        - Berths
+      summary: Retrieve a Berth's Schedules
+      operationId: retrieveBerthSchedules
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BerthSchedules'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /terminals:
+    post:
+      tags:
+        - Terminals
+      summary: Create a Terminal
+      operationId: createTerminal
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Terminal'
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/terminals\/[0-9]{1,10}$'
+                maxLength: 21
+                example: /terminals/1
+              description: The URL of the newly created Terminal.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/terminals/{terminal_id}':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    get:
+      tags:
+        - Terminals
+      summary: Retrieve a Terminal
+      operationId: retrieveTerminal
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - Terminals
+      summary: Replace a Terminal
+      operationId: replaceTerminal
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Terminal'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Terminals
+      summary: Delete a Terminal
+      operationId: deleteTerminal
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/terminals/{terminal_id}/berths':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    get:
+      tags:
+        - Terminals
+      summary: Retrieve a Terminal's Berths
+      operationId: retrieveTerminalBerths
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BerthMap'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/terminals/{terminal_id}/changes':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    post:
+      tags:
+        - Terminals
+      summary: Retrieve all changes of which the vessel's destination is the Terminal
+      operationId: retrieveTerminalChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Changes'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  '/terminals/{terminal_id}/vessels':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    get:
+      tags:
+        - Terminals
+      summary: Retrieve all Vessels whose destination is the Terminal
+      operationId: retrieveTerminalVessels
+      parameters:
+        - name: deadline_after
+          in: query
+          description: Only get Vessels who have a deadline after this time
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: arrival_before
+          in: query
+          description: Only get Vessels who have an arrival time before this time
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VesselMap'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/terminals/{terminal_id}/schedules':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    get:
+      tags:
+        - Terminals
+      summary: Retrieve a Terminal's Schedules
+      operationId: retrieveTerminalSchedules
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminalSchedules'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/terminals/{terminal_id}/schedules/optimise':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    post:
+      tags:
+        - Terminals
+      summary: Optimise a Terminal's Schedules
+      operationId: optimiseTerminalSchedules
+      parameters:
+        - name: from
+          in: query
+          description: Time to start calculating from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end calculating at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: unscheduled
+          in: query
+          description: Whether to include unscheduled Vessels in the optimisation
+          schema:
+            type: boolean
+            default: false
+            example: true
+        - name: manual
+          in: query
+          description: Whether to include manual Vessels in the optimisation
+          schema:
+            type: boolean
+            default: false
+            example: true
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/terminals/{terminal_id}/performance':
+    parameters:
+      - name: terminal_id
+        in: path
+        description: ID of the Terminal.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TerminalID'
+    get:
+      tags:
+        - Terminals
+      summary: Calculate a Terminal's Performance
+      operationId: calculateTerminalPerformance
+      parameters:
+        - name: from
+          in: query
+          description: Time to start calculating from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end calculating at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Performance'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /ports:
+    post:
+      tags:
+        - Ports
+      summary: Create a Port
+      operationId: createPort
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Port'
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/ports\/[0-9]{1,10}$'
+                maxLength: 17
+                example: /ports/1
+              description: The URL of the newly created Port.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Port'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags:
+        - Ports
+      summary: Retrieve all Ports
+      operationId: retrieveAllPorts
+      parameters: [ ]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortMap'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/ports/import':
+    post:
+      tags:
+        - Ports
+      summary: Import a Port
+      operationId: importPort
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortDump'
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers:
+            Location:
+              schema:
+                type: string
+                pattern: '^\/ports\/[0-9]{1,10}$'
+                maxLength: 17
+                example: /ports/1
+              description: The URL of the newly imported Port.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Port'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/ports/{port_id}':
+    parameters:
+      - name: port_id
+        in: path
+        description: ID of the Port.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PortID'
+    get:
+      tags:
+        - Ports
+      summary: Retrieve a Port
+      operationId: retrievePort
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Port'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - Ports
+      summary: Replace a Port
+      operationId: replacePort
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Port'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Port'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Ports
+      summary: Delete a Port
+      operationId: deletePort
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/ports/{port_id}/export':
+    parameters:
+      - name: port_id
+        in: path
+        description: ID of the Port.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PortID'
+    get:
+      tags:
+        - Ports
+      summary: Export a Port
+      operationId: exportPort
+      parameters:
+        - name: from
+          in: query
+          description: Time to start exporting from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end exporting at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortDump'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/ports/{port_id}/terminals':
+    parameters:
+      - name: port_id
+        in: path
+        description: ID of the Port.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PortID'
+    get:
+      tags:
+        - Ports
+      summary: Retrieve a Port's Terminals
+      operationId: retrievePortTerminals
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminalMap'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/ports/{port_id}/schedules':
+    parameters:
+      - name: port_id
+        in: path
+        description: ID of the Port.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PortID'
+    get:
+      tags:
+        - Ports
+      summary: Retrieve a Port's Schedules
+      operationId: retrievePortSchedules
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortSchedules'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/ports/{port_id}/performance':
+    parameters:
+      - name: port_id
+        in: path
+        description: ID of the Port.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PortID'
+    get:
+      tags:
+        - Ports
+      summary: Calculate a Port's Performance
+      operationId: calculatePortPerformance
+      parameters:
+        - name: from
+          in: query
+          description: Time to start calculating from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end calculating at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Performance'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/changes/undo':
+    post:
+      tags:
+        - Changes
+      summary: Undo the last change
+      operationId: undoLastChange
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/changes/redo':
+    post:
+      tags:
+        - Changes
+      summary: Redo the last change
+      operationId: redoLastChange
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/changes/vessels/{vessel_id}':
+    parameters:
+      - name: vessel_id
+        in: path
+        description: ID of the Vessel.
+        required: true
+        schema:
+          $ref: '#/components/schemas/VesselID'
+    get:
+      tags:
+        - Changes
+      summary: Retrieve a Vessel's Changes
+      operationId: retrieveVesselChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VesselChanges'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Changes
+      summary: Delete a Vessel's Changes
+      operationId: deleteVesselChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start deleting from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end deleting at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /changes/vessels:
+    get:
+      tags:
+        - Changes
+      summary: Retrieve all Vessels' Changes
+      operationId: retrieveAllVesselChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VesselChangesMap'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/changes/vessels/{vessel_id}/{date}':
+    parameters:
+      - name: vessel_id
+        in: path
+        description: ID of the Vessel.
+        required: true
+        schema:
+          $ref: '#/components/schemas/VesselID'
+      - name: date
+        in: path
+        description: >-
+          Time at which the change was made. Can be formatted without colons and
+          dashes.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Timestamp'
+    get:
+      tags:
+        - Changes
+      summary: Retrieve a Vessel's Change
+      operationId: retrieveVesselChange
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VesselChange'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Changes
+      summary: Delete a Vessel's Change
+      operationId: deleteVesselChange
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/changes/schedules/{vessel_id}':
+    parameters:
+      - name: vessel_id
+        in: path
+        description: ID of the Vessel whose Schedule should be/was changed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/VesselID'
+    get:
+      tags:
+        - Changes
+      summary: Retrieve all Schedule's Changes
+      operationId: retrieveAllScheduleChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleChanges'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Changes
+      summary: Delete a Schedule's Changes
+      operationId: deleteScheduleChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start deleting from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end deleting at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /changes/schedules:
+    get:
+      tags:
+        - Changes
+      summary: Retrieve all Schedules' Changes
+      operationId: retrieveAllSchedulesChanges
+      parameters:
+        - name: from
+          in: query
+          description: Time to start looking from
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+        - name: to
+          in: query
+          description: Time to end looking at
+          schema:
+            $ref: '#/components/schemas/Timestamp'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleChangesMap'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/changes/schedules/{vessel_id}/{date}':
+    parameters:
+      - name: vessel_id
+        in: path
+        description: ID of the Vessel which Schedule should be changed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/VesselID'
+      - name: date
+        in: path
+        description: >-
+          Time at which the change was made. Can be formatted without colons and
+          dashes.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Timestamp'
+    get:
+      tags:
+        - Changes
+      summary: Retrieve a Schedule's Change
+      operationId: retrieveScheduleChange
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleChange'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - Changes
+      summary: Delete a Schedule's Change
+      operationId: deleteScheduleChange
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+security:
+  - bearerAuth: [ ]
+components:
+  schemas:
+    Reason:
+      type: string
+      pattern: '^(?:.|\s)*$'
+      maxLength: 1073741824
+      nullable: true
+      example: New vessel inbound (#142)
+    Time:
+      type: string
+      format: time
+      pattern: '^([0-1]?[0-9]|2[0-3]):?[0-5][0-9]$'
+      example: 09:30:00
+    NullableTimestamp:
+      allOf:
+        - $ref: '#/components/schemas/Timestamp'
+        - title: Nullable Timestamp
+          nullable: true
+    Timestamp:
+      type: string
+      format: date-time
+      pattern: >-
+        ^(-?[0-9]+)-?(1[0-2]|0[1-9])-?(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):?([0-5][0-9]):?([0-5][0-9])Z$
+      maxLength: 22
+      example: 2022-05-11T16:32:35Z
+    NullableSchedule:
+      allOf:
+        - $ref: '#/components/schemas/Schedule'
+        - title: Nullable Schedule
+          nullable: true
+    Schedule:
+      title: Schedule
+      description: >-
+        A Schedule object has the following attributes:
+
+
+        + vessel: `1` (integer) - ID of the Vessel.
+        
+        + manual: `false` (boolean) - True if the Vessel should be planned at the supplied Berth and timestamp or false if it should be planned by the software.
+        
+        + berth: `20` (integer) - ID of the Berth the Vessel should be unloaded at.
+        
+        + start: `2022-05-12T07:23:00Z` (timestamp) - When the Vessel should start being unloaded.
+        
+        + end: `2022-05-13T21:41:00Z` (timestamp) - When the Vessel is expected to end being unloaded.
+        
+        
+        The `berth` and `start` attributes are not necessary if the `type` is `automatic`.
+        The `end` attribute will be calculated by the server.
+      type: object
+      properties:
+        vessel:
+          $ref: '#/components/schemas/VesselID'
+        manual:
+          type: boolean
+        berth:
+          $ref: '#/components/schemas/BerthID'
+        start:
+          $ref: '#/components/schemas/Timestamp'
+        end:
+          $ref: '#/components/schemas/Timestamp'
+      additionalProperties: false
+      required:
+        - vessel
+        - manual
+        - berth
+        - start
+      example:
+        vessel: 1
+        manual: true
+        berth: 30
+        start: 2022-05-11T16:32:00Z
+        end: 2022-05-11T21:26:00Z
+    BerthSchedules:
+      title: Berth Schedules
+      description: An array of Schedule objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/Schedule'
+      maxItems: 2147483647
+      uniqueItems: true
+      example:
+        - vessel: 1
+          manual: true
+          berth: 30
+          start: '2022-05-11T16:32:00Z'
+          end: '2022-05-11T21:26:00Z'
+        - vessel: 2
+          manual: false
+          berth: 30
+          start: '2022-05-14T09:21:00Z'
+          end: '2022-05-15T13:53:00Z'
+    TerminalSchedules:
+      title: Terminal Schedules
+      description: 'A map of Berth Schedules, keyed by Berth ID.'
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/BerthSchedules'
+      example:
+        '30':
+          - vessel: 1
+            manual: true
+            berth: 30
+            start: '2022-05-11T16:32:00Z'
+            end: '2022-05-11T21:26:00Z'
+          - vessel: 2
+            manual: false
+            berth: 30
+            start: '2022-05-14T09:21:00Z'
+            end: '2022-05-15T13:53:00Z'
+    PortSchedules:
+      title: Port Schedules
+      description: 'A map of Terminal Schedules, keyed by Terminal ID.'
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/TerminalSchedules'
+      example:
+        '1':
+          '30':
+            - vessel: 1
+              manual: true
+              berth: 30
+              start: '2022-05-11T16:32:00Z'
+              end: '2022-05-11T21:26:00Z'
+            - vessel: 2
+              manual: false
+              berth: 30
+              start: '2022-05-14T09:21:00Z'
+              end: '2022-05-15T13:53:00Z'
+    Infeasibility:
+      title: Infeasibility
+      description: >-
+        A Infeasibility object has the following attributes:
+
+        + valid: `false` (boolean) - If the schedule is feasible.
+
+        + reason: `Overlapping with vessels: 1, 2` (string) - The reason why the schedule is infeasible, or empty if the schedule is feasible.
+      type: object
+      properties:
+        valid:
+          type: boolean
+        reason:
+          type: string
+          pattern: '^(?:.|\s)+$'
+          maxLength: 1073741824
+          nullable: true
+      additionalProperties: false
+      required:
+        - valid
+        - reason
+      example:
+        valid: false
+        reason: 'Overlapping with vessels: 1, 2'
+    Performance:
+      title: Performance
+      description: >-
+        A Performance object has the following attributes:
+
+
+        + cost: `5152.25` (decimal) - The total cost of all scheduled vessels.
+        
+        + scheduled_vessels: `27` (integer) - The amount of vessels with a schedule.
+        
+        + unscheduled_vessels: `14` (integer) - The amount of vessels without a schedule.
+      type: object
+      properties:
+        cost:
+          type: number
+          format: real
+          minimum: 0
+          maximum: 1e+37
+        scheduled_vessels:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        unscheduled_vessels:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+      additionalProperties: false
+      required:
+        - cost
+        - scheduled_vessels
+        - unscheduled_vessels
+      example:
+        cost: 5152.25
+        scheduled_vessels: 27
+        unscheduled_vessels: 14
+    VesselID:
+      title: Vessel ID
+      description: >-
+        An ID of a Vessel. Vessel IDs are unique, and are generated by the
+        database.
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 2147483647
+      example: 1
+    OptionalVessel:
+      title: Vessel
+      description: >-
+        A Vessel object has the following attributes:
+
+
+        + name: `BigBoatHan` (string) - The name of the Vessel.
+        
+        + arrival: `2022-05-11T13:10:00Z` (timestamp) - When the Vessel is expected to arrive.
+
+        + deadline: `2022-05-12T09:54:00Z` (timestamp) - When the Vessel must be completely unloaded.
+
+        + containers: `5` (integer) - The amount of containers on the Vessel to be unloaded.
+
+        + cost_per_hour: `2.6` (decimal) - The cost per hour from arrival till fully unloaded.
+
+        + destination: `3` (integer) - The terminal where the Vessel should be unloaded.
+
+        + length: `30` (integer) - The length of the Vessel in metres.
+
+        + width: `10` (integer) - The width of the Vessel in metres.
+
+        + depth: `20` (integer) - The depth of the Vessel in metres.
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: '^(?:.|\s)+$'
+          maxLength: 64
+        arrival:
+          $ref: '#/components/schemas/Timestamp'
+        deadline:
+          $ref: '#/components/schemas/NullableTimestamp'
+        containers:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        cost_per_hour:
+          type: number
+          format: real
+          minimum: 0
+          maximum: 1e+37
+        destination:
+          $ref: '#/components/schemas/TerminalID'
+        length:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        width:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        depth:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+      additionalProperties: false
+      example:
+        name: New Vessel 1
+        containers: 40
+    NullableVessel:
+      allOf:
+        - $ref: '#/components/schemas/Vessel'
+        - title: Nullable Vessel
+          nullable: true
+    Vessel:
+      title: Vessel
+      description: >-
+        A Vessel object has the following attributes:
+
+
+        + name: `BigBoatHan` (string) - The name of the Vessel.
+
+        + arrival: `2022-05-11T13:10:00Z` (timestamp) - When the Vessel is expected to arrive.
+
+        + deadline: `2022-05-12T09:54:00Z` (timestamp) - When the Vessel must be completely unloaded.
+
+        + containers: `5` (integer) - The amount of containers on the Vessel to be unloaded.
+
+        + cost_per_hour: `2.6` (decimal) - The cost per hour from arrival till fully unloaded.
+
+        + destination: `3` (integer) - The terminal where the Vessel should be unloaded.
+
+        + length: `30` (integer) - The length of the Vessel in metres.
+
+        + width: `10` (integer) - The width of the Vessel in metres.
+
+        + depth: `20` (integer) - The depth of the Vessel in metres.
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: '^(?:.|\s)+$'
+          maxLength: 64
+        arrival:
+          $ref: '#/components/schemas/Timestamp'
+        deadline:
+          $ref: '#/components/schemas/NullableTimestamp'
+        containers:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        cost_per_hour:
+          type: number
+          format: real
+          minimum: 0
+          maximum: 1e+37
+        destination:
+          $ref: '#/components/schemas/TerminalID'
+        length:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        width:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        depth:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+      additionalProperties: false
+      required:
+        - name
+        - arrival
+        - containers
+        - cost_per_hour
+        - destination
+        - length
+        - width
+        - depth
+      example:
+        name: Vessel 1
+        arrival: 2022-05-11T13:56:00Z
+        deadline: 2022-05-12T18:13:00Z
+        containers: 30
+        cost_per_hour: 2.6
+        destination: 4
+        length: 30
+        width: 10
+        depth: 30
+    VesselMap:
+      title: Vessel Map
+      description: A map of Vessel objects keyed by Vessel ID.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Vessel'
+      example:
+        '1':
+          name: Vessel 1
+          arrival: 2022-05-11T13:56:00Z
+          deadline: 2022-05-12T18:13:00Z
+          containers: 30
+          cost_per_hour: 2.6
+          destination: 4
+          length: 30
+          width: 10
+          depth: 30
+        '2':
+          name: The other vessel
+          arrival: 2022-05-24T16:37:00Z
+          deadline: 2022-05-25T23:28:00Z
+          containers: 40
+          cost_per_hour: 5.2
+          destination: 3
+          length: 45
+          width: 15
+          depth: 20
+    BerthID:
+      title: Berth ID
+      description: >-
+        An ID of a Berth. Berth IDs are unique, and are generated by the
+        database.
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 2147483647
+      example: 1
+    Berth:
+      title: Berth
+      description: >-
+        A Berth object has the following attributes:
+
+
+        + terminal: `3` (integer) - The Terminal where the Berth is located.
+
+        + open_time: `06:45` (time) - The time at which the Berth starts processing.
+        
+        + close_time: `21:30` (time) - The time at which the Berth stops processing.
+        
+        + unload_speed: `6.3` (decimal) - The amount of containers per time unit the Berth can process.
+        
+        + length: `150` (integer) - The length of the Berth in metres.
+        
+        + width: `30` (integer) - The maximum length of Vessel in the Berth in metres.
+        
+        + depth: `50` (integer) - The depth of the Berth in metres.
+      type: object
+      properties:
+        terminal:
+          $ref: '#/components/schemas/TerminalID'
+        open_time:
+          $ref: '#/components/schemas/Time'
+        close_time:
+          $ref: '#/components/schemas/Time'
+        unload_speed:
+          type: number
+          format: real
+          minimum: 0
+          maximum: 1e+37
+        length:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        width:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        depth:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+      additionalProperties: false
+      required:
+        - terminal
+        - open_time
+        - close_time
+        - unload_speed
+        - length
+        - width
+        - depth
+      example:
+        terminal: 3
+        open_time: '06:45'
+        close_time: 1290
+        unload_speed: 6.3
+        length: 150
+        width: 30
+        depth: 50
+    BerthMap:
+      title: Berth Map
+      description: A map of Berth objects keyed by Berth ID.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Berth'
+      example:
+        '1':
+          terminal: 3
+          open_time: '06:45'
+          close_time: 1290
+          unload_speed: 6.3
+          length: 150
+          width: 30
+          depth: 50
+        '2':
+          terminal: 3
+          open_time: '08:30'
+          close_time: 1155
+          unload_speed: 2.7
+          length: 60
+          width: 20
+          depth: 30
+    TerminalID:
+      title: Terminal ID
+      description: >-
+        An ID of a Terminal. Terminal IDs are unique, and are generated by the
+        database.
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 2147483647
+      example: 1
+    Terminal:
+      title: Terminal
+      description: |-
+        A Terminal object has the following attributes:
+        
+        
+        + port: `2` (integer) - The Port where the Terminal is located.
+        
+        + name: `Han & Co. Ltd.` (string) - The name of the Terminal.
+      type: object
+      properties:
+        port:
+          $ref: '#/components/schemas/PortID'
+        name:
+          type: string
+          pattern: '^(?:.|\s)+$'
+          maxLength: 64
+      additionalProperties: false
+      required:
+        - port
+        - name
+      example:
+        port: 2
+        name: Han & Co. Ltd.
+    TerminalMap:
+      title: Terminal Map
+      description: A map of Terminal objects keyed by Terminal ID.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Terminal'
+      example:
+        '1':
+          port: 2
+          name: Han & Co. Ltd.
+        '2':
+          port: 2
+          name: Bui Buoys
+    PortID:
+      title: Port ID
+      description: 'An ID of a Port. Port IDs are unique, and are generated by the database.'
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 2147483647
+      example: 1
+    Port:
+      title: Port
+      description: |-
+        A Port object has the following attributes:
+        
+        
+        + name: `Han Shipping` (string) - The name of the Port.
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: '^(?:.|\s)+$'
+          maxLength: 64
+      additionalProperties: false
+      required:
+        - name
+      example:
+        name: Han Shipping
+    PortMap:
+      title: Port Map
+      description: A map of Port objects keyed by Port ID.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Port'
+      example:
+        '1':
+          name: Han Shipping
+        '2':
+          name: Thai Transport
+    PortDump:
+      title: Port Dump
+      description: >-
+        A Port Dump contains all information about a Port (possibly restricted to a specific time range). It has the following attributes:
+        
+        + version: `1` (integer) - A single digit version of the Port Dump format.
+        
+        + name: `Han Shipping Scenario 3` (string) - The name of the Port Dump.
+        
+        + terminals: `{"terminal3":{"name":"North","port":"port2"}}` (json) - All Terminals of the Port.
+        
+        + berths: `{"berth5":{"open":"06:15:00","close":"19:50:00","depth":4,"width":5,"length":18,"terminal":"terminal3","unload_speed":16}}` (json) - All Berths that fall under a Terminal of the Port.
+        
+        + vessels: `{"vessel9":{"name":"Llandaff","depth":3,"width":5,"length":2,"arrival":"2022-06-23T12:30:00Z","deadline":"2022-06-25T23:00:00Z","containers":12,"destination":"terminal3","cost_per_hour":14}}` (json) - All Vessels scheduled for a Terminal of the Port (within the provided time range).
+        
+        + schedules: `[{"berth":"berth5","start":"2022-06-23T13:30:00Z","manual":true,"vessel":"vessel10","expected_end":"2022-06-23T14:15:00Z"}]` (json) - All Schedules of Berths that fall under a Terminal of the Port (within the provided time range).
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+          example: 1
+        name:
+          type: string
+          pattern: '^(?:.|\s)+$'
+          maxLength: 64
+          example: Han Shipping Scenario 3
+        terminals:
+          $ref: '#/components/schemas/TerminalMap'
+        berths:
+          $ref: '#/components/schemas/BerthMap'
+        vessels:
+          $ref: '#/components/schemas/VesselMap'
+        schedules:
+          $ref: '#/components/schemas/BerthSchedules'
+      additionalProperties: false
+      required:
+        - version
+        - name
+        - terminals
+        - berths
+        - vessels
+        - schedules
+      example:
+        version: 1
+        name: New York Imported
+        terminals:
+          terminal7:
+            name: North
+            port: port5
+          terminal8:
+            name: South
+            port: port5
+        berths:
+          berth13:
+            open: '06:15:00'
+            close: '19:50:00'
+            depth: 4
+            width: 5
+            length: 18
+            terminal: terminal7
+            unload_speed: 16
+          berth14:
+            open: '09:50:00'
+            close: '21:45:00'
+            depth: 5
+            width: 5
+            length: 14
+            terminal: terminal7
+            unload_speed: 14
+          berth15:
+            open: '10:15:00'
+            close: '22:15:00'
+            depth: 7
+            width: 5
+            length: 15
+            terminal: terminal8
+            unload_speed: 12
+          berth16:
+            open: '07:45:00'
+            close: '23:00:00'
+            depth: 4
+            width: 4
+            length: 8
+            terminal: terminal8
+            unload_speed: 18
+        vessels:
+          vessel42:
+            name: Llandaff
+            depth: 3
+            width: 5
+            length: 2
+            arrival: '2022-06-23T12:30:00Z'
+            deadline: '2022-06-25T23:00:00Z'
+            containers: 12
+            destination: terminal7
+            cost_per_hour: 14
+          vessel43:
+            name: Tang
+            depth: 2
+            width: 2
+            length: 1
+            arrival: '2022-06-23T17:05:06Z'
+            deadline: '2022-06-24T23:15:00Z'
+            containers: 12
+            destination: terminal7
+            cost_per_hour: 412
+          vessel44:
+            name: Jahde
+            depth: 25
+            width: 25
+            length: 25
+            arrival: '2022-06-23T12:05:06Z'
+            deadline: '2022-06-23T23:05:06Z'
+            containers: 24
+            destination: terminal7
+            cost_per_hour: 12
+          vessel45:
+            name: Landudno
+            depth: 26
+            width: 25
+            length: 36
+            arrival: '2022-06-23T13:05:06Z'
+            deadline: '2022-06-23T23:05:06Z'
+            containers: 13
+            destination: terminal7
+            cost_per_hour: 12
+          vessel46:
+            name: Picton
+            depth: 26
+            width: 25
+            length: 38
+            arrival: '2022-06-24T12:05:06Z'
+            deadline: '2022-06-24T23:05:06Z'
+            containers: 13
+            destination: terminal8
+            cost_per_hour: 3.2
+          vessel47:
+            name: Etna
+            depth: 36
+            width: 24
+            length: 24
+            arrival: '2022-06-24T13:05:06Z'
+            deadline: '2022-06-24T23:05:06Z'
+            containers: 45
+            destination: terminal8
+            cost_per_hour: 0.5
+          vessel48:
+            name: Wem
+            depth: 64
+            width: 24
+            length: 14
+            arrival: '2022-06-23T14:05:06Z'
+            deadline: '2022-06-23T23:05:06Z'
+            containers: 234
+            destination: terminal8
+            cost_per_hour: 0.01
+          vessel49:
+            name: The Cyane
+            depth: 53
+            width: 12
+            length: 17
+            arrival: '2022-06-23T16:05:06Z'
+            deadline: '2022-06-23T23:05:06Z'
+            containers: 5
+            destination: terminal8
+            cost_per_hour: 1.2
+        schedules:
+          - berth: berth13
+            start: '2022-06-23T13:30:00Z'
+            manual: true
+            vessel: vessel43
+            expected_end: '2022-06-23T14:15:00Z'
+          - berth: berth13
+            start: '2022-06-23T14:00:00Z'
+            manual: true
+            vessel: vessel42
+            expected_end: '2022-06-23T14:45:00Z'
+          - berth: berth14
+            start: '2000-01-08T13:05:06Z'
+            manual: true
+            vessel: vessel45
+            expected_end: '2000-01-08T14:00:48Z'
+          - berth: berth14
+            start: '2022-06-23T13:00:00Z'
+            manual: false
+            vessel: vessel44
+            expected_end: '2022-06-23T14:42:51Z'
+          - berth: berth15
+            start: '2000-01-08T13:05:06Z'
+            manual: true
+            vessel: vessel47
+            expected_end: '2000-01-08T16:50:06Z'
+          - berth: berth15
+            start: '2000-01-09T13:05:06Z'
+            manual: false
+            vessel: vessel46
+            expected_end: '2000-01-09T14:10:06Z'
+          - berth: berth16
+            start: '2000-01-08T13:05:06Z'
+            manual: false
+            vessel: vessel49
+            expected_end: '2000-01-08T13:21:46Z'
+          - berth: berth16
+            start: '2000-01-11T13:05:06Z'
+            manual: false
+            vessel: vessel48
+            expected_end: '2000-01-12T02:05:06Z'
+    Changes:
+      title: Changes
+      description: An array of Vessel Change and Schedule Change objects.
+      type: array
+      items:
+        allOf:
+          - oneOf:
+            - $ref: '#/components/schemas/VesselChange'
+            - $ref: '#/components/schemas/ScheduleChange'
+          - type: object
+            properties:
+             type:
+              type: string
+            required:
+              - type
+      maxItems: 2147483647
+      example:
+        - vessel: 30
+          date: 2022-05-11T16:32:35Z
+          type: 'vessel'
+          old:
+            name: Vessel 1
+            arrival: 2022-05-11T13:56:00Z
+            deadline: 2022-05-12T18:13:00Z
+            containers: 30
+            cost_per_hour: 2.6
+            destination: 4
+            length: 30
+            width: 10
+            depth: 30
+          new:
+            name: New Vessel 1
+            arrival: 2022-05-11T13:56:00Z
+            deadline: 2022-05-12T18:13:00Z
+            containers: 40
+            cost_per_hour: 2.6
+            destination: 4
+            length: 30
+            width: 10
+            depth: 30
+          reason: 'Additional cargo (#2524)'
+        - vessel: 30
+          date: 2022-05-11T16:32:35Z
+          type: 'schedule'
+          old:
+            vessel: 30
+            manual: true
+            berth: 20
+            start: 2022-05-15T16:32:00Z
+            end: 2022-05-15T21:26:00Z
+          new:
+            vessel: 30
+            manual: false
+            berth: 20
+            start: 2022-05-15T16:32:00Z
+            end: 2022-05-15T21:26:00Z
+          reason: 'Turn on automatic scheduling'
+    VesselChange:
+      title: Vessel Change
+      description: >-
+        A Vessel Change object has the following attributes:
+
+
+        + vessel: `1` (integer) - The ID of the Vessel.
+
+        + date: `2022-05-11T16:32:35Z` (timestamp) - The date at which the change was made.
+
+        + old: `{"name":"Vessel 1","arrival":"2022-05-11T13:56:00.000Z","deadline":"2022-05-12T18:13:00.000Z","containers":30,"cost_per_hour":2.6,"destination":4,"length":30,"width":10,"depth":30}` (json) - The Vessel before being changed.
+
+        + new: `{"name":"New Vessel 1","arrival":"2022-05-11T13:56:00.000Z","deadline":"2022-05-12T18:13:00.000Z","containers":40,"cost_per_hour":2.6,"destination":4,"length":30,"width":10,"depth":30}` (json) - The Vessel after being changed.
+
+        + reason: `Additional cargo (#2524)` (string) - The reason for the change.
+      type: object
+      properties:
+        vessel:
+          $ref: '#/components/schemas/VesselID'
+        date:
+          $ref: '#/components/schemas/Timestamp'
+        old:
+          $ref: '#/components/schemas/NullableVessel'
+        new:
+          $ref: '#/components/schemas/Vessel'
+        reason:
+          $ref: '#/components/schemas/Reason'
+      additionalProperties: false
+      required:
+        - vessel
+        - date
+        - old
+        - new
+        - reason
+      example:
+        vessel: 30
+        date: 2022-05-11T16:32:35Z
+        old:
+          name: Vessel 1
+          arrival: 2022-05-11T13:56:00Z
+          deadline: 2022-05-12T18:13:00Z
+          containers: 30
+          cost_per_hour: 2.6
+          destination: 4
+          length: 30
+          width: 10
+          depth: 30
+        new:
+          name: New Vessel 1
+          arrival: 2022-05-11T13:56:00Z
+          deadline: 2022-05-12T18:13:00Z
+          containers: 40
+          cost_per_hour: 2.6
+          destination: 4
+          length: 30
+          width: 10
+          depth: 30
+        reason: 'Additional cargo (#2524)'
+    VesselChanges:
+      title: Vessel Changes
+      description: An array of Vessel Change objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/VesselChange'
+      maxItems: 2147483647
+      example:
+        - vessel: 30
+          date: 2022-05-11T16:32:35Z
+          old:
+            name: Vessel 1
+            arrival: 2022-05-11T13:56:00Z
+            deadline: 2022-05-12T18:13:00Z
+            containers: 30
+            cost_per_hour: 2.6
+            destination: 4
+            length: 30
+            width: 10
+            depth: 30
+          new:
+            name: New Vessel 1
+            arrival: 2022-05-11T13:56:00Z
+            deadline: 2022-05-12T18:13:00Z
+            containers: 40
+            cost_per_hour: 2.6
+            destination: 4
+            length: 30
+            width: 10
+            depth: 30
+          reason: 'Additional cargo (#2524)'
+        - vessel: 30
+          date: 2022-05-11T21:26:24Z
+          old:
+            name: New Vessel 1
+            arrival: 2022-05-11T13:56:00Z
+            deadline: 2022-05-12T18:13:00Z
+            containers: 40
+            cost_per_hour: 2.6
+            destination: 4
+            length: 30
+            width: 10
+            depth: 30
+          new:
+            name: New Vessel 1
+            arrival: 2022-05-18T13:56:00Z
+            deadline: 2022-05-19T18:13:00Z
+            containers: 40
+            cost_per_hour: 2.6
+            destination: 4
+            length: 30
+            width: 10
+            depth: 30
+          reason: 'Ship delayed (#3517)'
+    VesselChangesMap:
+      title: Vessel Changes Map
+      description: A map of Vessel Changes keyed by Vessel ID.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/VesselChanges'
+      example:
+        '30':
+          - vessel: 30
+            date: 2022-05-11T16:32:35Z
+            old:
+              name: Vessel 1
+              arrival: 2022-05-11T13:56:00Z
+              deadline: 2022-05-12T18:13:00Z
+              containers: 30
+              cost_per_hour: 2.6
+              destination: 4
+              length: 30
+              width: 10
+              depth: 30
+            new:
+              name: New Vessel 1
+              arrival: 2022-05-11T13:56:00Z
+              deadline: 2022-05-12T18:13:00Z
+              containers: 40
+              cost_per_hour: 2.6
+              destination: 4
+              length: 30
+              width: 10
+              depth: 30
+            reason: 'Additional cargo (#2524)'
+          - vessel: 30
+            date: 2022-05-11T21:26:24Z
+            old:
+              name: New Vessel 1
+              arrival: 2022-05-11T13:56:00Z
+              deadline: 2022-05-12T18:13:00Z
+              containers: 40
+              cost_per_hour: 2.6
+              destination: 4
+              length: 30
+              width: 10
+              depth: 30
+            new:
+              name: New Vessel 1
+              arrival: 2022-05-18T13:56:00Z
+              deadline: 2022-05-19T18:13:00Z
+              containers: 40
+              cost_per_hour: 2.6
+              destination: 4
+              length: 30
+              width: 10
+              depth: 30
+            reason: 'Ship delayed (#3517)'
+    ScheduleChange:
+      title: Schedule Change
+      description: >-
+        A Vessel Change object has the following attributes:
+
+
+        + vessel: `1` (integer) - The ID of the Schedule's Vessel. 
+
+        + date: `2022-05-11T16:32:35Z` (timestamp) - The date at which the change was made.
+
+        + old: `{"vessel":30,"manual":true,"berth":20,"start":"2022-05-15T16:32:00.000Z","end":"2022-05-15T21:26:00.000Z"}` (json) - The Schedule before being changed.
+
+        + new: `{"vessel":30,"manual":false,"berth":20,"start":"2022-05-15T16:32:00.000Z","end":"2022-05-15T21:26:00.000Z"}` (json) - The Schedule after being changed.
+
+        + reason: `Turn on automatic scheduling` (string) - The reason for the change.
+      type: object
+      properties:
+        vessel:
+          $ref: '#/components/schemas/VesselID'
+        date:
+          $ref: '#/components/schemas/Timestamp'
+        old:
+          $ref: '#/components/schemas/NullableSchedule'
+        new:
+          $ref: '#/components/schemas/Schedule'
+        reason:
+          $ref: '#/components/schemas/Reason'
+      additionalProperties: false
+      required:
+        - vessel
+        - date
+        - old
+        - new
+        - reason
+      example:
+        vessel: 30
+        date: 2022-05-11T16:32:35Z
+        old:
+          vessel: 30
+          manual: true
+          berth: 20
+          start: 2022-05-15T16:32:00Z
+          end: 2022-05-15T21:26:00Z
+        new:
+          vessel: 30
+          manual: false
+          berth: 20
+          start: 2022-05-15T16:32:00Z
+          end: 2022-05-15T21:26:00Z
+        reason: Turn on automatic scheduling
+    ScheduleChanges:
+      title: Schedule Changes
+      description: An array of Schedule Change objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/ScheduleChange'
+      maxItems: 2147483647
+      example:
+        - vessel: 30
+          date: 2022-05-11T16:32:35Z
+          old:
+            vessel: 30
+            manual: true
+            berth: 20
+            start: 2022-05-15T16:32:00Z
+            end: 2022-05-15T21:26:00Z
+          new:
+            vessel: 30
+            manual: false
+            berth: 20
+            start: 2022-05-15T16:32:00Z
+            end: 2022-05-15T21:26:00Z
+          reason: Turn on automatic scheduling
+        - vessel: 30
+          date: 2022-05-11T21:26:24Z
+          old:
+            vessel: 30
+            manual: false
+            berth: 20
+            start: 2022-05-15T16:32:00Z
+            end: 2022-05-15T21:26:00Z
+          new:
+            vessel: 30
+            manual: false
+            berth: 18
+            start: 2022-05-09T10:24:00Z
+            end: 2022-05-10T16:17:00Z
+          reason: Automatic scheduling job
+    ScheduleChangesMap:
+      title: Schedule Changes Map
+      description: A map of Schedule Changes keyed by a Schedule's Vessel ID.
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/ScheduleChanges'
+      example:
+        '30':
+          - vessel: 30
+            date: 2022-05-11T16:32:35Z
+            old:
+              vessel: 30
+              manual: true
+              berth: 20
+              start: 2022-05-15T16:32:00Z
+              end: 2022-05-15T21:26:00Z
+            new:
+              vessel: 30
+              manual: false
+              berth: 20
+              start: 2022-05-15T16:32:00Z
+              end: 2022-05-15T21:26:00Z
+            reason: Turn on automatic scheduling
+          - vessel: 30
+            date: 2022-05-11T21:26:24Z
+            old:
+              vessel: 30
+              manual: false
+              berth: 20
+              start: 2022-05-15T16:32:00Z
+              end: 2022-05-15T21:26:00Z
+            new:
+              vessel: 30
+              manual: false
+              berth: 18
+              start: 2022-05-09T10:24:00Z
+              end: 2022-05-10T16:17:00Z
+            reason: Automatic scheduling job
+    Role:
+      title: Role
+      description: A Role that an Employee might have
+      type: string
+      enum:
+        - vessel planner
+        - terminal manager
+        - port authority
+        - researcher
+      example: vessel planner
+    Email:
+      title: Email
+      description: An email address for an Employee
+      type: string
+      format: email
+      pattern: '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'
+      maxLength: 64
+      example: jdoe@tormails.com
+    EmployeeInput:
+      title: Employee Input
+      description: >-
+        An Employee Input object has the following attributes:
+        
+        + email: `jdoe@tormails.com` (string) - The email address of the Employee.
+        
+        + password: `Password123` (string) - The password of the Employee.
+        
+        + role: `vessel planner` (enum) - The role of the Employee.
+        
+        + terminal: `1` (number|null) - The ID of the Employee's Terminal.
+        
+        + port: `null` (number|null) - The ID of the Employee's Port.
+      type: object
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        password:
+          type: string
+          format: password
+          pattern: '^(?:.|\s)*$'
+          maxLength: 1073741824
+          example: Password123
+        role:
+          $ref: '#/components/schemas/Role'
+        terminal:
+          allOf:
+            - $ref: '#/components/schemas/TerminalID'
+            - nullable: true
+        port:
+          allOf:
+            - $ref: '#/components/schemas/PortID'
+            - nullable: true
+      additionalProperties: false
+      required:
+        - email
+        - password
+        - role
+        - terminal
+        - port
+      example:
+        email: jdoe@tormails.com
+        password: Password123
+        role: vessel planner
+        terminal: 1
+        port: null
+    Employee:
+      title: Employee
+      description: >-
+        An Employee object has the following attributes:
+        
+        + email: `jdoe@tormails.com` (string) - The email address of the Employee.
+        
+        + key
+        
+          + hash: `U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==` (byte) - The hash of the Employee's password.
+        
+          + salt: `9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk=` (byte) - The salt used to generate and validate the hash.
+        
+        + role: `vessel planner` (enum) - The role of the Employee.
+        
+        + terminal: `1` (number|null) - The ID of the Employee's Terminal.
+        
+        + port: `null` (number|null) - The ID of the Employee's Port.
+      type: object
+      properties:
+        email:
+          $ref: '#/components/schemas/Email'
+        key:
+          type: object
+          properties:
+            hash:
+              type: string
+              format: byte
+              example: U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==
+            salt:
+              type: string
+              format: byte
+              example: 9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk=
+          additionalProperties: false
+          required:
+            - hash
+            - salt
+          example:
+            hash: U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==
+            salt: 9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk=
+        role:
+          $ref: '#/components/schemas/Role'
+        terminal:
+          allOf:
+            - $ref: '#/components/schemas/TerminalID'
+            - nullable: true
+        port:
+          allOf:
+            - $ref: '#/components/schemas/PortID'
+            - nullable: true
+      additionalProperties: false
+      required:
+        - email
+        - key
+        - role
+        - terminal
+        - port
+      example:
+        email: jdoe@tormails.com
+        key:
+          hash: U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==
+          salt: 9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk=
+        role: vessel planner
+        terminal: 1
+        port: null
+    EmployeeList:
+      title: Employee List
+      description: An array of Employee objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/Employee'
+      maxItems: 2147483647
+      example:
+        - email: jdoe@tormails.com
+          key:
+            hash: U+Q43l2oMyLFXJBgZOGo2AF5d3sy0lWQYjqX+bVEwm/KwBWSP83OVRHlbi3tDc6KdOXc6N7JzOkK9s50PYOjEg==
+            salt: 9qtiDMW9KczgmJUhYaj/n+IrS0LoWBNZFWARUZV1RQk=
+          role: vessel planner
+          terminal: 1
+          port: null
+  responses:
+    NoContent:
+      description: 204 No Content
+    NotFound:
+      description: 404 Not Found
+    Unauthorized:
+      description: 401 Unauthorized
+    Forbidden:
+      description: 403 Forbidden
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: You must generate a JWT through the /token/obtain endpoint and then pass it as a Bearer token in the Authorization header.
+tags:
+  - name: Token
+    description: >-
+      The Token API is used to create, read, update, and delete Tokens.
+      Tokens are used to authenticate an Employee and are used to access the API.
+  - name: Vessels
+    description: ''
+  - name: Berths
+    description: ''
+  - name: Terminals
+    description: ''
+  - name: Ports
+    description: ''
+  - name: Changes
+    description: ''
+  - name: Employees
+    description: ''
